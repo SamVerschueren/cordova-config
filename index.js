@@ -73,11 +73,53 @@ module.exports = (function() {
         // Append the preference to the root tag
         this._root.append(preference);
     };
+    
+    /**
+     * Removes all the <access /> tags out of the config file.
+     */
+    Config.prototype.removeAccessOrigins = function() {
+        var ao;
+        
+        while(ao = this._doc.find('./access')) {
+            // Remove all the access tags untill there are no tags left
+            this._root.remove(ao);
+        }
+    };
+    
+    /**
+     * Adds a new <access /> tag to the XML file. If an access tag with that origin
+     * already exist, it will be overwritten.
+     * 
+     * @param {string} origin       The origin of the access tag.
+     * @param {object} [options]    Extra properties that should be added to the access tag.
+     */
+    Config.prototype.setAccessOrigin = function(origin, options) {
+        options = options || {};
+        
+        var accessOrigin = this._doc.find('./access/[@origin="' + origin + '"]');
+        
+        if(accessOrigin) {
+            // If the access tag allready exist, remove it
+            this._root.remove(accessOrigin);
+        }
+        
+        // Create an access tag
+        accessOrigin = new et.Element('access');
+        accessOrigin.attrib.origin = origin;
+        
+        for(var key in options) {
+            // Iterate over the options object and add the properties
+            accessOrigin.attrib[key] = options[key];
+        }
+        
+        // Add the access tag to the root
+        this._root.append(accessOrigin);
+    };
 
     /**
      * Writes the config file async.
      *
-     * @param  {Function} cb The callback function invoked when the file is written.
+     * @param  {function} cb The callback function invoked when the file is written.
      */
     Config.prototype.write = function(cb) {
         fs.writeFile(this._file, this._doc.write({indent: 4}), 'utf-8', cb);
