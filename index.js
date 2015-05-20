@@ -50,6 +50,86 @@ module.exports = (function() {
         this._doc = _this.parse(file);
         this._root = this._doc.getroot();
     }
+    
+    /**
+     * Sets the name tag of the config.xml file.
+     * 
+     * @param {string} name The name of the config.xml name tag.
+     */
+    Config.prototype.setName = function(name) {
+        // Find the name tag
+        var nameTag = this._doc.find('./name');
+        
+        if(!nameTag) {
+            // If no name tag exists, create one
+            nameTag = new et.Element('name');
+            
+            // Add the name tag to the root
+            this._root.append(nameTag);
+        }   
+        
+        // Set the text of the tag
+        nameTag.text = name;
+    };
+    
+    /**
+     * Sets the description tag of the config.xml file.
+     * 
+     * @param {string} description The description of the config.xml description tag.
+     */
+    Config.prototype.setDescription = function(description) {
+        // Find the description tag
+        var descriptionTag = this._doc.find('./description');
+        
+        if(!descriptionTag) {
+            // If the description tag does not exists, create one
+            descriptionTag = new et.Element('description');
+            
+            // Add the description tag to the root
+            this._root.append(descriptionTag);
+        }
+        
+        // Set the text of the description tag
+        descriptionTag.text = description;
+    };
+    
+    /**
+     * Sets the author in the config file.
+     * 
+     * @param {string} name         The name of the author.
+     * @param {string} [email]      The email address of the author.
+     * @param {string} [website]    The website of the author.
+     */
+    Config.prototype.setAuthor = function(name, email, website) {
+        // Find the author tag
+        var authorTag = this._doc.find('./author');
+        
+        if(!authorTag) {
+            // If no author tag exists, create one
+            authorTag = new et.Element('author');
+            
+            // Add the tag to the root
+            this._root.append(authorTag);
+        }
+        else {
+            // If a tag exists, first make sure to remove the attributes
+            delete authorTag.attrib.email;
+            delete authorTag.attrib.href;
+        }
+        
+        // Set the text of the author tag
+        authorTag.text = name;
+        
+        if(email) {
+            // Set the email attribute
+            authorTag.attrib.email = email;
+        }
+        
+        if(website) {
+            // Set the website attribute
+            authorTag.attrib.href = website;
+        }
+    };
 
     /**
      * Adds or updates the preference `name` with the
