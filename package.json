@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/SamVerschueren/cordova-config/issues"
   },
-  "homepage": "https://github.com/SamVerschueren/cordova-config"
+  "homepage": "https://github.com/SamVerschueren/cordova-config",
+  "dependencies": {
+    "elementtree": "^0.1.6"
+  }
 }
