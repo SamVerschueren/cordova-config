@@ -81,6 +81,17 @@ Type: `string`
 
 The website of the author.
 
+### #setVersion(version)
+
+> Sets the version attribute if the `widget` tag in the xml file.
+
+#### version
+
+*Required*  
+Type: `string`
+
+The version in the format `x.y.z`.
+
 ### #setPreference(name, value)
 
 > Adds a `<preference name="name" value="value" />` tag to the xml file.
