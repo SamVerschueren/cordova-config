@@ -184,6 +184,20 @@ module.exports = (function() {
     };
 
     /**
+     * Removes the access origin tag from the XML file if it exists.
+     *
+     * @param  {string} origin The origin that should be removed.
+     */
+    Config.prototype.removeAccessOrigin = function(origin) {
+        var accessOrigin = this._doc.find('./access/[@origin="' + origin + '"]');
+
+        if(accessOrigin) {
+            // If the access tag allready exist, remove it
+            this._root.remove(accessOrigin);
+        }
+    };
+
+    /**
      * Adds a new <access /> tag to the XML file. If an access tag with that origin
      * already exist, it will be overwritten.
      *
@@ -193,15 +207,11 @@ module.exports = (function() {
     Config.prototype.setAccessOrigin = function(origin, options) {
         options = options || {};
 
-        var accessOrigin = this._doc.find('./access/[@origin="' + origin + '"]');
-
-        if(accessOrigin) {
-            // If the access tag allready exist, remove it
-            this._root.remove(accessOrigin);
-        }
+        // Remove the origin if it already exists.
+        this.removeAccessOrigin(origin);
 
         // Create an access tag
-        accessOrigin = new et.Element('access');
+        var accessOrigin = new et.Element('access');
         accessOrigin.attrib.origin = origin;
 
         for(var key in options) {
