@@ -114,6 +114,17 @@ The value of the preference.
 
 > Removes all the `<access />` tags in the xml file.
 
+### #removeAccessOrigin(origin)
+
+> Removes the `<access />` tag with the origin equal to the parameter.
+
+#### origin
+
+*Required*
+Type: `string`
+
+The origin of the access tag you want to remove.
+
 ### #setAccessOrigin(origin [, options])
 
 > Adds an `<access />` tag to the xml file.
