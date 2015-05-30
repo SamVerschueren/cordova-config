@@ -1,6 +1,6 @@
 {
   "name": "cordova-config",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Parse and edit the config.xml file of a cordova project",
   "main": "index.js",
   "scripts": {
