@@ -142,6 +142,17 @@ Type: `object`
 
 A map with extra attributes that will be added to the access tag.
 
+### #addRawXML(xml)
+
+> Adds a raw xml element to the root of the config file.
+
+#### xml
+
+*Required*
+Type: `string`
+
+A raw xml element. You can only pass in one element with one root.
+
 ### #write(cb)
 
 > Writes the `config.xml` file async.

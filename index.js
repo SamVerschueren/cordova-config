@@ -222,11 +222,24 @@ module.exports = (function() {
         // Add the access tag to the root
         this._root.append(accessOrigin);
     };
+    
+    /**
+     * This method adds the raw XML provided to the config.xml file.
+     * 
+     * @param {string}  raw         The raw XML that should be added to the config file.
+     */
+    Config.prototype.addRawXML = function(raw) {
+        // Parse the raw XML
+        var xml = et.XML(raw);
+        
+        // Append the XML
+        this._root.append(xml);
+    };
 
     /**
      * Writes the config file async.
      *
-     * @param  {function} cb The callback function invoked when the file is written.
+     * @param {function} cb The callback function invoked when the file is written.
      */
     Config.prototype.write = function(cb) {
         fs.writeFile(this._file, this._doc.write({indent: 4}), 'utf-8', cb);
