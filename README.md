@@ -83,7 +83,29 @@ The website of the author.
 
 ### #setVersion(version)
 
-> Sets the version attribute if the `widget` tag in the xml file.
+> Sets the version attribute of the `widget` tag in the xml file.
+
+#### version
+
+*Required*  
+Type: `string`
+
+The version in the format `x.y.z`.
+
+### #setAndroidVersionCode(version)
+
+> Sets the android-versionCode attribute of the `widget` tag in the xml file.
+
+#### version
+
+*Required*  
+Type: `number`
+
+The Android version code.
+
+### #setIOSBundleVersion(version)
+
+> Sets the ios-CFBundleVersion attribute of the `widget` tag in the xml file.
 
 #### version
 
