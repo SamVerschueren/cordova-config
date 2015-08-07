@@ -134,7 +134,7 @@ module.exports = (function() {
     /**
      * Sets the version of the config file.
      *
-     * @param {string} version      The version number.
+     * @param {string}  version         The version number.
      */
     Config.prototype.setVersion = function(version) {
         var regex = new RegExp('[0-9]+\.[0-9]+\.[0-9]+');
@@ -146,6 +146,40 @@ module.exports = (function() {
 
         // Set the version of the widget tag
         this._root.attrib.version = version;
+    };
+    
+    /**
+     * Sets the Android version code of the config file.
+     * 
+     * @param {number}  versionCode     The android version code.
+     */
+    Config.prototype.setAndroidVersionCode = function(versionCode) {
+        var regex = new RegExp('[0-9]+');
+
+        if(!regex.test(versionCode)) {
+            // If the version is not valid, throw an error.
+            throw new Error('Please provide a valid Android version code.');
+        }
+
+        // Set the version of the widget tag
+        this._root.attrib['android-versionCode'] = versionCode;
+    };
+    
+    /**
+     * Sets the iOS CFBundleVersion of the config file.
+     * 
+     * @param {string}  version         The iOS CFBundleVersion.
+     */
+    Config.prototype.setIOSBundleVersion = function(version) {
+        var regex = new RegExp('[0-9]+\.[0-9]+\.[0-9]+');
+
+        if(!regex.test(version)) {
+            // If the version is not valid, throw an error.
+            throw new Error('Please provide a valid version number.');
+        }
+        
+        // Set the version of the widget tag
+        this._root.attrib['ios-CFBundleVersion'] = version;
     };
 
     /**
