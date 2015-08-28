@@ -61,4 +61,34 @@ describe('cordova-config', function() {
             cb();
         });
     });
+    
+    describe('#setName', function() {
+        
+        it('Should add a name tag if it does not yet exist', function(cb) {
+            // Load the config and set the name
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setName('FooBar');
+            
+            // Test
+            config._root._children.should.have.length(1);
+            config._root._children[0].tag.should.be.equal('name');
+            config._root._children[0].text.should.be.equal('FooBar');
+            
+            cb();
+        });
+        
+        it('Should overwrite the name tag if it allready exists', function(cb) {
+            // Load the config and set the name
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setName('FooBar');
+            
+            // Test
+            var element = config._doc.find('./name');
+            
+            element.tag.should.be.equal('name');
+            element.text.should.be.equal('FooBar');
+            
+            cb();
+        });
+    });
 });
