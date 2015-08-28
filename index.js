@@ -33,7 +33,7 @@ module.exports = (function() {
 
             if(root.tag !== 'widget') {
                 // Throw an error if widget is not the root tag
-                throw new Error('config.xml has incorrect root node name (expected "widget", was "' + root.tag + '")');
+                throw new Error(file + ' has incorrect root node name (expected "widget", was "' + root.tag + '")');
             }
 
             return doc;
