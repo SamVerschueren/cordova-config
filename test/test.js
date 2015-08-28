@@ -121,4 +121,51 @@ describe('cordova-config', function() {
             cb();
         });
     });
+    
+    describe('#setAuthor', function() {
+        
+        it('Should add an author tag with no attributes if only the name is provided', function(cb) {
+            // Load the config and set the author
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setAuthor('John Doe');
+            
+            // Test
+            config._root._children.should.have.length(1);
+            config._root._children[0].tag.should.be.equal('author');
+            config._root._children[0].text.should.be.equal('John Doe');
+            config._root._children[0].attrib.should.be.eql({});
+            
+            cb();
+        });
+        
+        it('Should add an author tag with an email attribute if it is provided', function(cb) {
+            // Load the config and set the author
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setAuthor('John Doe', 'john.doe@testers.com');
+            
+            // Test
+            config._root._children.should.have.length(1);
+            config._root._children[0].tag.should.be.equal('author');
+            config._root._children[0].text.should.be.equal('John Doe');
+            config._root._children[0].attrib.should.be.eql({email: 'john.doe@testers.com'});
+            
+            cb();
+        });
+        
+        it('Should add an author tag with an email attribute if it is provided', function(cb) {
+            // Load the config and set the author
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setAuthor('John Doe', 'john.doe@testers.com', 'http://john.doe.com');
+            
+            // Test
+            config._root._children.should.have.length(1);
+            config._root._children[0].tag.should.be.equal('author');
+            config._root._children[0].text.should.be.equal('John Doe');
+            config._root._children[0].attrib.should.be.eql({email: 'john.doe@testers.com', href: 'http://john.doe.com'});
+            
+            cb();
+        });
+        
+        // TODO add more tests
+    });
 });
