@@ -91,4 +91,34 @@ describe('cordova-config', function() {
             cb();
         });
     });
+    
+    describe('#setDescription', function() {
+        
+        it('Should add a description tag if it does not yet exist', function(cb) {
+            // Load the config and set the description
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setDescription('Foo Description');
+            
+            // Test
+            config._root._children.should.have.length(1);
+            config._root._children[0].tag.should.be.equal('description');
+            config._root._children[0].text.should.be.equal('Foo Description');
+            
+            cb();
+        });
+        
+        it('Should overwrite the description tag if it allready exists', function(cb) {
+            // Load the config and set the description
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setDescription('Foo Description');
+            
+            // Test
+            var element = config._doc.find('./description');
+            
+            element.tag.should.be.equal('description');
+            element.text.should.be.equal('Foo Description');
+            
+            cb();
+        });
+    });
 });
