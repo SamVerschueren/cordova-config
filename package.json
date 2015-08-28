@@ -28,7 +28,6 @@
     "elementtree": "^0.1.6"
   },
   "devDependencies": {
-    "array.prototype.find": "^1.0.0",
     "chai": "^3.2.0",
     "mocha": "^2.2.5"
   }
