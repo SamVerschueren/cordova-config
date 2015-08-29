@@ -13,7 +13,7 @@ npm install --save cordova-config
 
 ## Usage
 
-```JavaScript
+```javascript
 var Config = require('cordova-config');
 
 // Load and parse the config.xml
