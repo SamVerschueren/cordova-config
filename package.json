@@ -4,7 +4,8 @@
   "description": "Parse and edit the config.xml file of a cordova project",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha test"
+    "test": "node_modules/.bin/mocha test",
+    "coveralls": "node_modules/.bin/istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | node_modules/.bin/coveralls && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,8 @@
   },
   "devDependencies": {
     "chai": "^3.2.0",
+    "coveralls": "^2.11.4",
+    "istanbul": "^0.3.18",
     "mocha": "^2.2.5"
   }
 }
