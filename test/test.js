@@ -152,7 +152,7 @@ describe('cordova-config', function() {
             cb();
         });
         
-        it('Should add an author tag with an email attribute if it is provided', function(cb) {
+        it('Should add an author tag with an email and href attribute if it is provided', function(cb) {
             // Load the config and set the author
             var config = new Config(__dirname + '/fixtures/config.empty.xml');
             config.setAuthor('John Doe', 'john.doe@testers.com', 'http://john.doe.com');
@@ -166,6 +166,49 @@ describe('cordova-config', function() {
             cb();
         });
         
-        // TODO add more tests
+        it('Should overwrite the author tag and remove the attributes if only the name is provided', function(cb) {
+            // Load the config and set the author
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setAuthor('John Doe');
+            
+            // Test
+            var element = config._doc.find('./author');
+            
+            element.tag.should.be.equal('author');
+            element.text.should.be.equal('John Doe');
+            element.attrib.should.be.eql({});
+            
+            cb();
+        });
+        
+        it('Should overwrite the author tag and remove the href attribute if only the name and email is provided', function(cb) {
+            // Load the config and set the author
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setAuthor('John Doe', 'john.doe@testers.com');
+            
+            // Test
+            var element = config._doc.find('./author');
+            
+            element.tag.should.be.equal('author');
+            element.text.should.be.equal('John Doe');
+            element.attrib.should.be.eql({email: 'john.doe@testers.com'});
+            
+            cb();
+        });
+        
+        it('Should overwrite the author tag and attributes', function(cb) {
+            // Load the config and set the author
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setAuthor('John Doe', 'john.doe@testers.com', 'http://john.doe.com');
+            
+            // Test
+            var element = config._doc.find('./author');
+            
+            element.tag.should.be.equal('author');
+            element.text.should.be.equal('John Doe');
+            element.attrib.should.be.eql({email: 'john.doe@testers.com', href: 'http://john.doe.com'});
+            
+            cb();
+        });
     });
 });
