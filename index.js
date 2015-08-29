@@ -154,7 +154,7 @@ module.exports = (function() {
      * @param {number}  versionCode     The android version code.
      */
     Config.prototype.setAndroidVersionCode = function(versionCode) {
-        var regex = new RegExp('[0-9]+');
+        var regex = new RegExp('^[0-9]+$');
 
         if(!regex.test(versionCode)) {
             // If the version is not valid, throw an error.

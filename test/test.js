@@ -262,4 +262,64 @@ describe('cordova-config', function() {
             config._root.attrib.version.should.be.equal('1.1.1');
         });
     });
+    
+    describe('#setAndroidVersionCode', function() {
+        it('Should throw an error if the version equals ab', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setAndroidVersionCode.bind(config, 'ab').should.throw(Error);
+        });
+        
+        it('Should not throw an error if the version equals string 1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setAndroidVersionCode.bind(config, '1').should.not.throw(Error);
+        });
+        
+        it('Should not throw an error if the version equals number 1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setAndroidVersionCode.bind(config, 1).should.not.throw(Error);
+        });
+        
+        it('Should not throw an error if the version equals 1.1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setAndroidVersionCode.bind(config, '1.1').should.throw(Error);
+        });
+        
+        it('Should not throw an error if the version equals 1a', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setAndroidVersionCode.bind(config, '1a').should.throw(Error);
+        });
+        
+        it('Should not throw an error if the version equals a1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setAndroidVersionCode.bind(config, 'a1').should.throw(Error);
+        });
+        
+        it('Should overwrite version of the widget tag', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setAndroidVersionCode('110');
+            
+            config._root.attrib['android-versionCode'].should.be.equal('110');
+        });
+        
+        it('Should set the version of the widget tag', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setAndroidVersionCode('110');
+            
+            config._root.attrib['android-versionCode'].should.be.equal('110');
+        });
+    });
 });
