@@ -39,32 +39,28 @@ describe('cordova-config', function() {
             }
         });
         
-        it('Should parse the config file correctly', function(cb) {
+        it('Should parse the config file correctly', function() {
             var config = new Config(__dirname + '/fixtures/config.xml');
             
             config._root.tag.should.be.equal('widget');
             config._root.attrib.id.should.be.equal('cordova-config');
             config._root.attrib.version.should.be.equal('0.0.1');
             config._root._children.should.have.length(5);
-            
-            cb();
         });
         
-        it('Should remove the Byte Order Mark', function(cb) {
+        it('Should remove the Byte Order Mark', function() {
             var config = new Config(__dirname + '/fixtures/config.bom.xml');
             
             config._root.tag.should.be.equal('widget');
             config._root.attrib.id.should.be.equal('cordova-config');
             config._root.attrib.version.should.be.equal('0.0.1');
             config._root._children.should.have.length(5);
-            
-            cb();
         });
     });
     
     describe('#setName', function() {
         
-        it('Should add a name tag if it does not yet exist', function(cb) {
+        it('Should add a name tag if it does not yet exist', function() {
             // Load the config and set the name
             var config = new Config(__dirname + '/fixtures/config.empty.xml');
             config.setName('FooBar');
@@ -73,11 +69,9 @@ describe('cordova-config', function() {
             config._root._children.should.have.length(1);
             config._root._children[0].tag.should.be.equal('name');
             config._root._children[0].text.should.be.equal('FooBar');
-            
-            cb();
         });
         
-        it('Should overwrite the name tag if it allready exists', function(cb) {
+        it('Should overwrite the name tag if it allready exists', function() {
             // Load the config and set the name
             var config = new Config(__dirname + '/fixtures/config.xml');
             config.setName('FooBar');
@@ -87,14 +81,12 @@ describe('cordova-config', function() {
             
             element.tag.should.be.equal('name');
             element.text.should.be.equal('FooBar');
-            
-            cb();
         });
     });
     
     describe('#setDescription', function() {
         
-        it('Should add a description tag if it does not yet exist', function(cb) {
+        it('Should add a description tag if it does not yet exist', function() {
             // Load the config and set the description
             var config = new Config(__dirname + '/fixtures/config.empty.xml');
             config.setDescription('Foo Description');
@@ -103,11 +95,9 @@ describe('cordova-config', function() {
             config._root._children.should.have.length(1);
             config._root._children[0].tag.should.be.equal('description');
             config._root._children[0].text.should.be.equal('Foo Description');
-            
-            cb();
         });
         
-        it('Should overwrite the description tag if it allready exists', function(cb) {
+        it('Should overwrite the description tag if it allready exists', function() {
             // Load the config and set the description
             var config = new Config(__dirname + '/fixtures/config.xml');
             config.setDescription('Foo Description');
@@ -117,14 +107,12 @@ describe('cordova-config', function() {
             
             element.tag.should.be.equal('description');
             element.text.should.be.equal('Foo Description');
-            
-            cb();
         });
     });
     
     describe('#setAuthor', function() {
         
-        it('Should add an author tag with no attributes if only the name is provided', function(cb) {
+        it('Should add an author tag with no attributes if only the name is provided', function() {
             // Load the config and set the author
             var config = new Config(__dirname + '/fixtures/config.empty.xml');
             config.setAuthor('John Doe');
@@ -134,11 +122,9 @@ describe('cordova-config', function() {
             config._root._children[0].tag.should.be.equal('author');
             config._root._children[0].text.should.be.equal('John Doe');
             config._root._children[0].attrib.should.be.eql({});
-            
-            cb();
         });
         
-        it('Should add an author tag with an email attribute if it is provided', function(cb) {
+        it('Should add an author tag with an email attribute if it is provided', function() {
             // Load the config and set the author
             var config = new Config(__dirname + '/fixtures/config.empty.xml');
             config.setAuthor('John Doe', 'john.doe@testers.com');
@@ -148,11 +134,9 @@ describe('cordova-config', function() {
             config._root._children[0].tag.should.be.equal('author');
             config._root._children[0].text.should.be.equal('John Doe');
             config._root._children[0].attrib.should.be.eql({email: 'john.doe@testers.com'});
-            
-            cb();
         });
         
-        it('Should add an author tag with an email and href attribute if it is provided', function(cb) {
+        it('Should add an author tag with an email and href attribute if it is provided', function() {
             // Load the config and set the author
             var config = new Config(__dirname + '/fixtures/config.empty.xml');
             config.setAuthor('John Doe', 'john.doe@testers.com', 'http://john.doe.com');
@@ -162,11 +146,9 @@ describe('cordova-config', function() {
             config._root._children[0].tag.should.be.equal('author');
             config._root._children[0].text.should.be.equal('John Doe');
             config._root._children[0].attrib.should.be.eql({email: 'john.doe@testers.com', href: 'http://john.doe.com'});
-            
-            cb();
         });
         
-        it('Should overwrite the author tag and remove the attributes if only the name is provided', function(cb) {
+        it('Should overwrite the author tag and remove the attributes if only the name is provided', function() {
             // Load the config and set the author
             var config = new Config(__dirname + '/fixtures/config.xml');
             config.setAuthor('John Doe');
@@ -177,11 +159,9 @@ describe('cordova-config', function() {
             element.tag.should.be.equal('author');
             element.text.should.be.equal('John Doe');
             element.attrib.should.be.eql({});
-            
-            cb();
         });
         
-        it('Should overwrite the author tag and remove the href attribute if only the name and email is provided', function(cb) {
+        it('Should overwrite the author tag and remove the href attribute if only the name and email is provided', function() {
             // Load the config and set the author
             var config = new Config(__dirname + '/fixtures/config.xml');
             config.setAuthor('John Doe', 'john.doe@testers.com');
@@ -192,11 +172,9 @@ describe('cordova-config', function() {
             element.tag.should.be.equal('author');
             element.text.should.be.equal('John Doe');
             element.attrib.should.be.eql({email: 'john.doe@testers.com'});
-            
-            cb();
         });
         
-        it('Should overwrite the author tag and attributes', function(cb) {
+        it('Should overwrite the author tag and attributes', function() {
             // Load the config and set the author
             var config = new Config(__dirname + '/fixtures/config.xml');
             config.setAuthor('John Doe', 'john.doe@testers.com', 'http://john.doe.com');
@@ -207,8 +185,81 @@ describe('cordova-config', function() {
             element.tag.should.be.equal('author');
             element.text.should.be.equal('John Doe');
             element.attrib.should.be.eql({email: 'john.doe@testers.com', href: 'http://john.doe.com'});
+        });
+    });
+    
+    describe('#setVersion', function() {
+        
+        it('Should throw an error if the version equals ab', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
             
-            cb();
+            config.setVersion.bind(config, 'ab').should.throw(Error);
+        });
+        
+        it('Should throw an error if the version equals 1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setVersion.bind(config, '1').should.throw(Error);
+        });
+        
+        it('Should throw an error if the version equals 1.1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setVersion.bind(config, '1.1').should.throw(Error);
+        });
+        
+        it('Should not throw an error if the version equals 1.1.1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setVersion.bind(config, '1.1.1').should.not.throw(Error);
+        });
+        
+        it('Should not throw an error if the version equals 1.1.1.1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setVersion.bind(config, '1.1.1.1').should.throw(Error);
+        });
+        
+        it('Should not throw an error if the version equals a.b.c', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setVersion.bind(config, 'a.b.c').should.throw(Error);
+        });
+        
+        it('Should not throw an error if the version equals 1..1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setVersion.bind(config, '1..1').should.throw(Error);
+        });
+        
+        it('Should not throw an error if the version equals 1.1.', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            
+            config.setVersion.bind(config, '1.1.').should.throw(Error);
+        });
+        
+        it('Should overwrite version of the widget tag', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setVersion('1.1.1');
+            
+            config._root.attrib.version.should.be.equal('1.1.1');
+        });
+        
+        it('Should set the version of the widget tag', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setVersion('1.1.1');
+            
+            config._root.attrib.version.should.be.equal('1.1.1');
         });
     });
 });
