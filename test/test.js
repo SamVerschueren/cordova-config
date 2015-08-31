@@ -322,4 +322,41 @@ describe('cordova-config', function() {
             config._root.attrib['android-versionCode'].should.be.equal('110');
         });
     });
+    
+    describe('#setID', function() {
+        it('Should throw an error if the id has non IRI character', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setID.bind(config, '*.wrongid.com').should.throw(Error);
+            config.setID.bind(config, '$.wrongid.com').should.throw(Error);
+            config.setID.bind(config, '.com.com').should.throw(Error);
+        });
+
+        it('Should set the id of the widget tag', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setID('com.my.app');
+
+            config._root.attrib['id'].should.be.equal('com.my.app');
+        });
+    });
+
+    describe('#addHook', function() {
+        it('Should throw an error if the type is invalid', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.addHook.bind(config, 'after_then', 'scripts/hook.js').should.throw(Error);
+            config.addHook.bind(config, 'after_compil', 'scripts/hook.js').should.throw(Error);
+        });
+
+        it('Should add a hook element on the root', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.addHook('after_build', 'scripts/hook.js');
+
+            config._doc.find('./hook/[@type="after_build"]').attrib.src.should.be.equal('scripts/hook.js');
+        });
+    });
 });

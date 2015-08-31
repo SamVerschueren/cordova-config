@@ -167,6 +167,35 @@ Type: `object`
 
 A map with extra attributes that will be added to the access tag.
 
+### #setID(id)
+
+> Sets the ID of the config file.
+
+#### id
+
+*Required*  
+Type: `string`
+
+The id of the widget tag.
+
+### #addHook(type, src)
+
+> Adds the hook with type and src. see [Apache Cordova API Documentation](https://goo.gl/5QZlqu) for more info.
+
+#### type
+
+*Required*
+Type: `string`
+
+Cordova hook type. ex) 'after_build', 'after_compile', 'after_clean'
+
+#### src
+
+*Required*
+Type: `string`
+
+Src path of hook script
+
 ### #addRawXML(xml)
 
 > Adds a raw xml element to the root of the config file.
