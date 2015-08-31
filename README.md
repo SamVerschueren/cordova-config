@@ -224,7 +224,8 @@ The callback function that is called when the file is written.
 
 ## Contributors
 
-- Sam Verschueren [<sam.verschueren@gmail.com>]
+- Sam Verschueren (Author) [<sam.verschueren@gmail.com>]
+- [Jimmy Moon](https://github.com/ragingwind)
 
 ## License
 
