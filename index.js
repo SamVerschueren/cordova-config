@@ -258,6 +258,54 @@ module.exports = (function() {
     };
     
     /**
+     * Sets the ID of the config file.
+     *
+     * @param {string} id The ID of the config file.
+     */
+    Config.prototype.setID = function(id) {
+        var regex = new RegExp('^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-‌​\.\?\,\'\/\\\+&amp;%\$#_]*)?$');
+
+        if(!regex.test(id)) {
+            // If the id is not IRI, throw an error.
+            throw new Error('Please provide a valid id.');
+        }
+
+        // Set the id of the widget tag
+        this._root.attrib['id'] = id;
+    };
+
+    /**
+     * Adds the hook with type and src.
+     * see [Apache Cordova API Documentation](https://goo.gl/5QZlqu) for more info
+     * @param {string} type  cordova hook type
+     * @param {string} src   src of script
+     */
+    Config.prototype.addHook = function(type, src) {
+        var cordovaHookTypes = [
+            'after_build', 'after_compile', 'after_clean', 'after_docs', 'after_emulate',
+            'after_platform_add', 'after_platform_rm', 'after_platform_ls', 'after_plugin_add',
+            'after_plugin_ls', 'after_plugin_rm', 'after_plugin_search', 'after_plugin_install',
+            'after_prepare', 'after_run', 'after_serve', 'before_build', 'before_clean',
+            'before_compile', 'before_docs', 'before_emulate', 'before_platform_add',
+            'before_platform_rm', 'before_platform_ls', 'before_plugin_add', 'before_plugin_ls',
+            'before_plugin_rm', 'before_plugin_search', 'before_plugin_install',
+            'before_plugin_uninstall', 'before_prepare', 'before_run', 'before_serve', 'pre_package'
+        ];
+
+        if (cordovaHookTypes.indexOf(type) === -1) {
+            throw new Error('Please provide a valid hook target');
+        }
+
+        // Create the hook element
+        var hook = new et.Element('hook');
+        hook.attrib.type = type;
+        hook.attrib.src = src;
+
+        // Append the hook to the root tag
+        this._root.append(hook);
+    };
+    
+    /**
      * This method adds the raw XML provided to the config.xml file.
      * 
      * @param {string}  raw         The raw XML that should be added to the config file.
