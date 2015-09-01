@@ -5,6 +5,8 @@
 
 > Parse and edit the config.xml file of a cordova project.
 
+*See [cordova-config-cli](https://github.com/ragingwind/cordova-config-cli) for the command-line version.*
+
 ## Installation
 
 ```bash
