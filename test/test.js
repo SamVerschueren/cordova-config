@@ -45,7 +45,7 @@ describe('cordova-config', function() {
             config._root.tag.should.be.equal('widget');
             config._root.attrib.id.should.be.equal('cordova-config');
             config._root.attrib.version.should.be.equal('0.0.1');
-            config._root._children.should.have.length(5);
+            config._root._children.should.have.length(6);
         });
         
         it('Should remove the Byte Order Mark', function() {
@@ -320,6 +320,32 @@ describe('cordova-config', function() {
             config.setAndroidVersionCode('110');
             
             config._root.attrib['android-versionCode'].should.be.equal('110');
+        });
+    });
+    
+    // TODO test setIOSBundleVersion but wait for https://github.com/SamVerschueren/gulp-cordova-version/issues/2 to be resolved
+    
+    describe('#setPreference', function() {
+        it('Should overwrite the preference if it already exists', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setPreference('ShowTitle', false);
+            
+            var preference = config._doc.find('./preference/[@name="ShowTitle"]');
+            
+            preference.attrib.name.should.be.equal('ShowTitle');
+            preference.attrib.value.should.be.equal(false);
+        });
+        
+        it('Should create a new preference if it already exists', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setPreference('ShowTitle', false);
+            
+            var preference = config._doc.find('./preference/[@name="ShowTitle"]');
+            
+            preference.attrib.name.should.be.equal('ShowTitle');
+            preference.attrib.value.should.be.equal(false);
         });
     });
     

@@ -7,6 +7,7 @@
     <author email="sam.verschueren@gmail.com" href="https://github.com/samverschueren">
         Sam Verschueren
     </author>
+    <preference name="ShowTitle" value="true" />
     <content src="index.html" />
     <access origin="*" />
 </widget>
