@@ -8,7 +8,11 @@
  */
 
 // module dependencies
-var chai = require('chai');
+var chai = require('chai'),
+    fs = require('fs-extra'),
+    path = require('path'),
+    os = require('os'),
+    tempfile = require('tempfile');
 
 var Config = require('../');
 
@@ -481,7 +485,6 @@ describe('cordova-config', function() {
     });
 
     describe('#addRawXML', function() {
-
         it('Should add raw xml to the config file', function() {
             // Load the config
             var config = new Config(__dirname + '/fixtures/config.xml');
@@ -495,6 +498,38 @@ describe('cordova-config', function() {
 
             var platform = config._doc.find('./platform/[@name="android"]');
             platform._children.should.have.length(4);
+        });
+    });
+
+    describe('#writeSync', function() {
+
+        beforeEach(function() {
+            this.tmp = path.join(tempfile(), 'config.xml');
+
+            fs.copySync(path.join(__dirname, '/fixtures/config.empty.xml'), this.tmp);
+        });
+
+        it('Should write the file synchronous', function() {
+            var result = [
+                "<?xml version='1.0' encoding='utf-8'?>",
+                '<widget id="cordova-config" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">',
+                '    <name>Hello World</name>',
+                '    <description>This is my description</description>',
+                '</widget>'
+            ];
+
+            // Load config and set name and description
+            var config = new Config(this.tmp);
+            config.setName('Hello World');
+            config.setDescription('This is my description');
+
+            // Write the config file
+            config.writeSync();
+
+            // Read the config file and check the contents
+            var content = fs.readFileSync(this.tmp, 'utf8');
+
+            content.should.be.equal(result.join(os.EOL) + os.EOL);
         });
     });
 });
