@@ -9,6 +9,7 @@
 
 // module dependencies
 var chai = require('chai'),
+    sinon = require('sinon'),
     fs = require('fs-extra'),
     path = require('path'),
     os = require('os'),
@@ -609,7 +610,7 @@ describe('cordova-config', function() {
             }.bind(this));
         });
 
-        it('Should write the file', function(done) {
+        it('Should write the file and return a promise', function(done) {
             var tmp = this.tmp;
 
             var result = [
@@ -638,6 +639,24 @@ describe('cordova-config', function() {
                     done(err);
                 });
         });
+
+        it('Should reject the promise if something went wrong', sinon.test(function(done) {
+            // Make sure it throws an error
+            this.stub(fs, 'writeFileSync').throws();
+
+            // Load config and set name and description
+            var config = new Config(this.tmp);
+
+            // Write the config file
+            config.write()
+                .then(function() {
+                    done(new Error('This should not be called'));
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    done();
+                });
+        }));
     });
 
     describe('#writeSync', function() {
