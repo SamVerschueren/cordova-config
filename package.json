@@ -29,7 +29,8 @@
     "index.js"
   ],
   "dependencies": {
-    "elementtree": "^0.1.6"
+    "elementtree": "^0.1.6",
+    "pinkie-promise": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^3.2.0",

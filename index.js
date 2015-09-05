@@ -9,7 +9,8 @@
 
 // module dependencies
 var fs = require('fs'),
-    et = require('elementtree');
+    et = require('elementtree'),
+    Promise = require('pinkie-promise');
 
 module.exports = (function() {
 
@@ -320,10 +321,25 @@ module.exports = (function() {
     /**
      * Writes the config file async.
      *
-     * @param {function} cb The callback function invoked when the file is written.
+     * @param   {function} [cb]     The callback function invoked when the file is written.
+     * @returns {Promise}           A promise that will be resolved if the file was written successfully.
      */
     Config.prototype.write = function(cb) {
-        fs.writeFile(this._file, this._doc.write({indent: 4}), 'utf-8', cb);
+        return new Promise(function(resolve, reject) {
+            try {
+                // Write the file
+                fs.writeFileSync(this._file, this._doc.write({indent: 4}), 'utf-8');
+
+                // Execute the callback and resolve the promise
+                if(cb) cb();
+                resolve();
+            }
+            catch(err) {
+                // Execute the callback and reject the promise
+                if(cb) cb(err);
+                reject(err);
+            }
+        }.bind(this));
     };
 
     /**

@@ -608,6 +608,36 @@ describe('cordova-config', function() {
                 done();
             }.bind(this));
         });
+
+        it('Should write the file', function(done) {
+            var tmp = this.tmp;
+
+            var result = [
+                "<?xml version='1.0' encoding='utf-8'?>",
+                '<widget id="cordova-config" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">',
+                '    <name>Hello World</name>',
+                '    <description>This is my description</description>',
+                '</widget>'
+            ];
+
+            // Load config and set name and description
+            var config = new Config(tmp);
+            config.setName('Hello World');
+            config.setDescription('This is my description');
+
+            // Write the config file
+            config.write()
+                .then(function() {
+                    var content = fs.readFileSync(tmp, 'utf8');
+
+                    content.should.be.equal(result.join(os.EOL) + os.EOL);
+
+                    done();
+                })
+                .catch(function(err) {
+                    done(err);
+                });
+        });
     });
 
     describe('#writeSync', function() {
