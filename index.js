@@ -310,11 +310,18 @@ module.exports = (function() {
      * @param {string}  raw         The raw XML that should be added to the config file.
      */
     Config.prototype.addRawXML = function(raw) {
-        // Parse the raw XML
-        var xml = et.XML(raw);
+        try {
+            // Parse the raw XML
+            var xml = et.XML(raw);
 
-        // Append the XML
-        this._root.append(xml);
+            console.log(xml);
+
+            // Append the XML
+            this._root.append(xml);
+        }
+        catch(e) {
+            console.log(e);
+        }
     };
 
     /**

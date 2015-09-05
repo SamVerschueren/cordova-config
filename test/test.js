@@ -58,6 +58,25 @@ describe('cordova-config', function() {
         });
     });
 
+    describe('#setID', function() {
+        it('Should throw an error if the id has non IRI character', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setID.bind(config, '*.wrongid.com').should.throw(Error);
+            config.setID.bind(config, '$.wrongid.com').should.throw(Error);
+            config.setID.bind(config, '.com.com').should.throw(Error);
+        });
+
+        it('Should set the id of the widget tag', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setID('com.my.app');
+
+            config._root.attrib['id'].should.be.equal('com.my.app');
+        });
+    });
+
     describe('#setName', function() {
 
         it('Should add a name tag if it does not yet exist', function() {
@@ -443,25 +462,6 @@ describe('cordova-config', function() {
         });
     });
 
-    describe('#setID', function() {
-        it('Should throw an error if the id has non IRI character', function() {
-            // Load the config
-            var config = new Config(__dirname + '/fixtures/config.xml');
-
-            config.setID.bind(config, '*.wrongid.com').should.throw(Error);
-            config.setID.bind(config, '$.wrongid.com').should.throw(Error);
-            config.setID.bind(config, '.com.com').should.throw(Error);
-        });
-
-        it('Should set the id of the widget tag', function() {
-            // Load the config
-            var config = new Config(__dirname + '/fixtures/config.empty.xml');
-            config.setID('com.my.app');
-
-            config._root.attrib['id'].should.be.equal('com.my.app');
-        });
-    });
-
     describe('#addHook', function() {
         it('Should throw an error if the type is invalid', function() {
             // Load the config
@@ -477,6 +477,24 @@ describe('cordova-config', function() {
             config.addHook('after_build', 'scripts/hook.js');
 
             config._doc.find('./hook/[@type="after_build"]').attrib.src.should.be.equal('scripts/hook.js');
+        });
+    });
+
+    describe('#addRawXML', function() {
+
+        it('Should add raw xml to the config file', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.addRawXML(
+                '<platform name="android">' +
+                '   <icon src="res/android/ldpi.png" density="ldpi" />' +
+                '   <icon src="res/android/mdpi.png" density="mdpi" />' +
+                '   <icon src="res/android/hdpi.png" density="hdpi" />' +
+                '   <icon src="res/android/xhdpi.png" density="xhdpi" />' +
+                '</platform>');
+
+            var platform = config._doc.find('./platform/[@name="android"]');
+            platform._children.should.have.length(4);
         });
     });
 });
