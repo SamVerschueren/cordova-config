@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/SamVerschueren/cordova-config",
   "files": [
-      "index.js"
+    "index.js"
   ],
   "dependencies": {
     "elementtree": "^0.1.6"
