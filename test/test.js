@@ -367,6 +367,34 @@ describe('cordova-config', function() {
         });
     });
 
+    describe('#removeAccessOrigin', function() {
+        it('Should remove the \'*\' access origin', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.removeAccessOrigin('*');
+
+            config._root.findall('./access').should.have.length(1);
+        });
+
+        it('Should keep the \'http://www.google.com\' access origin', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.removeAccessOrigin('*');
+
+            var tag = config._root.find('./access');
+
+            tag.attrib.origin.should.be.equal('http://www.google.com');
+        });
+
+        it('Should do nothing if the access origin does not exist', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.removeAccessOrigin('*');
+
+            config._root.findall('./access').should.have.length(0);
+        });
+    });
+
     describe('#setID', function() {
         it('Should throw an error if the id has non IRI character', function() {
             // Load the config

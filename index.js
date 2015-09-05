@@ -225,7 +225,7 @@ module.exports = (function() {
         var accessOrigin = this._doc.find('./access/[@origin="' + origin + '"]');
 
         if(accessOrigin) {
-            // If the access tag allready exist, remove it
+            // If the access tag exists, remove it
             this._root.remove(accessOrigin);
         }
     };
