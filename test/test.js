@@ -501,8 +501,44 @@ describe('cordova-config', function() {
         });
     });
 
-    describe('#writeSync', function() {
+    describe('#write', function() {
+        beforeEach(function() {
+            this.tmp = path.join(tempfile(), 'config.xml');
 
+            fs.copySync(path.join(__dirname, '/fixtures/config.empty.xml'), this.tmp);
+        });
+
+        it('Should write the file', function(done) {
+            var result = [
+                "<?xml version='1.0' encoding='utf-8'?>",
+                '<widget id="cordova-config" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">',
+                '    <name>Hello World</name>',
+                '    <description>This is my description</description>',
+                '</widget>'
+            ];
+
+            // Load config and set name and description
+            var config = new Config(this.tmp);
+            config.setName('Hello World');
+            config.setDescription('This is my description');
+
+            // Write the config file
+            config.write(function(err) {
+                if(err) {
+                    return done(err);
+                }
+
+                // Read the config file and check the contents
+                var content = fs.readFileSync(this.tmp, 'utf8');
+
+                content.should.be.equal(result.join(os.EOL) + os.EOL);
+
+                done();
+            }.bind(this));
+        });
+    });
+
+    describe('#writeSync', function() {
         beforeEach(function() {
             this.tmp = path.join(tempfile(), 'config.xml');
 
