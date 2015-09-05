@@ -346,7 +346,79 @@ describe('cordova-config', function() {
         });
     });
 
-    // TODO test setIOSBundleVersion but wait for https://github.com/SamVerschueren/gulp-cordova-version/issues/2 to be resolved
+    describe('#setIOSBundleVersion', function() {
+        it('Should throw an error if the version equals ab', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setVersion.bind(config, 'ab').should.throw(Error);
+        });
+
+        it('Should throw an error if the version equals 1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setVersion.bind(config, '1').should.throw(Error);
+        });
+
+        it('Should throw an error if the version equals 1.1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setVersion.bind(config, '1.1').should.throw(Error);
+        });
+
+        it('Should not throw an error if the version equals 1.1.1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setVersion.bind(config, '1.1.1').should.not.throw(Error);
+        });
+
+        it('Should not throw an error if the version equals 1.1.1.1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setVersion.bind(config, '1.1.1.1').should.throw(Error);
+        });
+
+        it('Should not throw an error if the version equals a.b.c', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setVersion.bind(config, 'a.b.c').should.throw(Error);
+        });
+
+        it('Should not throw an error if the version equals 1..1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setVersion.bind(config, '1..1').should.throw(Error);
+        });
+
+        it('Should not throw an error if the version equals 1.1.', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setVersion.bind(config, '1.1.').should.throw(Error);
+        });
+
+        it('Should overwrite version of the widget tag', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setVersion('1.1.1');
+
+            config._root.attrib.version.should.be.equal('1.1.1');
+        });
+
+        it('Should set the version of the widget tag', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setVersion('1.1.1');
+
+            config._root.attrib.version.should.be.equal('1.1.1');
+        });
+    });
 
     describe('#setPreference', function() {
         it('Should overwrite the preference if it already exists', function() {
