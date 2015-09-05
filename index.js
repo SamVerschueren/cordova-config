@@ -52,6 +52,23 @@ module.exports = (function() {
     }
 
     /**
+     * Sets the ID of the config file.
+     *
+     * @param {string} id The ID of the config file.
+     */
+    Config.prototype.setID = function(id) {
+        var regex = new RegExp('^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-‌​\.\?\,\'\/\\\+&amp;%\$#_]*)?$');
+
+        if(!regex.test(id)) {
+            // If the id is not IRI, throw an error.
+            throw new Error('Please provide a valid id.');
+        }
+
+        // Set the id of the widget tag
+        this._root.attrib['id'] = id;
+    };
+
+    /**
      * Sets the name tag of the config.xml file.
      *
      * @param {string} name The name of the config.xml name tag.
@@ -254,23 +271,6 @@ module.exports = (function() {
 
         // Add the access tag to the root
         this._root.append(accessOrigin);
-    };
-
-    /**
-     * Sets the ID of the config file.
-     *
-     * @param {string} id The ID of the config file.
-     */
-    Config.prototype.setID = function(id) {
-        var regex = new RegExp('^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-‌​\.\?\,\'\/\\\+&amp;%\$#_]*)?$');
-
-        if(!regex.test(id)) {
-            // If the id is not IRI, throw an error.
-            throw new Error('Please provide a valid id.');
-        }
-
-        // Set the id of the widget tag
-        this._root.attrib['id'] = id;
     };
 
     /**

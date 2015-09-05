@@ -395,6 +395,54 @@ describe('cordova-config', function() {
         });
     });
 
+    describe('#setAccessOrigin', function() {
+        it('Should add an extra access origin tag', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setAccessOrigin('http://my.api.com');
+
+            config._root.findall('./access').should.have.length(3);
+        });
+
+        it('Should add an extra access origin tag with an option', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setAccessOrigin('https://*', {'launch-external': 'yes'});
+
+            var tag = config._root.find('./access/[@origin="https://*"]');
+
+            tag.attrib.origin.should.be.equal('https://*');
+            tag.attrib['launch-external'].should.be.equal('yes');
+        });
+
+        it('Should add an extra access origin tag with more options', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setAccessOrigin('https://*', {a: 'b', c: 'd', e: 'f'});
+
+            var tag = config._root.find('./access/[@origin="https://*"]');
+
+            tag.attrib.origin.should.be.equal('https://*');
+            tag.attrib.a.should.be.equal('b');
+            tag.attrib.c.should.be.equal('d');
+            tag.attrib.e.should.be.equal('f');
+        });
+
+        it('Should replace an existing access origin', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setAccessOrigin('*', {'launch-external': 'yes'});
+
+            // Count the number of access origin tags
+            config._root.findall('./access').should.have.length(2);
+
+            // Check the tag
+            var tag = config._root.find('./access/[@origin="*"]');
+            tag.attrib.origin.should.be.equal('*');
+            tag.attrib['launch-external'].should.be.equal('yes');
+        });
+    });
+
     describe('#setID', function() {
         it('Should throw an error if the id has non IRI character', function() {
             // Load the config
