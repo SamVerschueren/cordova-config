@@ -10,4 +10,5 @@
     <preference name="ShowTitle" value="true" />
     <content src="index.html" />
     <access origin="*" />
+    <access origin="http://www.google.com" />
 </widget>

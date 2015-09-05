@@ -147,10 +147,10 @@ module.exports = (function() {
         // Set the version of the widget tag
         this._root.attrib.version = version;
     };
-    
+
     /**
      * Sets the Android version code of the config file.
-     * 
+     *
      * @param {number}  versionCode     The android version code.
      */
     Config.prototype.setAndroidVersionCode = function(versionCode) {
@@ -164,10 +164,10 @@ module.exports = (function() {
         // Set the version of the widget tag
         this._root.attrib['android-versionCode'] = versionCode;
     };
-    
+
     /**
      * Sets the iOS CFBundleVersion of the config file.
-     * 
+     *
      * @param {string}  version         The iOS CFBundleVersion.
      */
     Config.prototype.setIOSBundleVersion = function(version) {
@@ -177,7 +177,7 @@ module.exports = (function() {
             // If the version is not valid, throw an error.
             throw new Error('Please provide a valid version number.');
         }
-        
+
         // Set the version of the widget tag
         this._root.attrib['ios-CFBundleVersion'] = version;
     };
@@ -209,12 +209,11 @@ module.exports = (function() {
      * Removes all the <access /> tags out of the config file.
      */
     Config.prototype.removeAccessOrigins = function() {
-        var ao;
-
-        while(ao = this._doc.find('./access')) {
-            // Remove all the access tags untill there are no tags left
-            this._root.remove(ao);
-        }
+        // Find all the access tags and remove them
+        this._doc.findall('./access').forEach(function(tag) {
+            // Remove the tag
+            this._root.remove(tag);
+        }.bind(this));
     };
 
     /**
@@ -256,7 +255,7 @@ module.exports = (function() {
         // Add the access tag to the root
         this._root.append(accessOrigin);
     };
-    
+
     /**
      * Sets the ID of the config file.
      *
@@ -304,16 +303,16 @@ module.exports = (function() {
         // Append the hook to the root tag
         this._root.append(hook);
     };
-    
+
     /**
      * This method adds the raw XML provided to the config.xml file.
-     * 
+     *
      * @param {string}  raw         The raw XML that should be added to the config file.
      */
     Config.prototype.addRawXML = function(raw) {
         // Parse the raw XML
         var xml = et.XML(raw);
-        
+
         // Append the XML
         this._root.append(xml);
     };
