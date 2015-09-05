@@ -653,7 +653,6 @@ describe('cordova-config', function() {
                     done(new Error('This should not be called'));
                 })
                 .catch(function(err) {
-                    console.log(err);
                     done();
                 });
         }));
