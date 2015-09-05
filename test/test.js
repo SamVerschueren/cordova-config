@@ -581,7 +581,7 @@ describe('cordova-config', function() {
             fs.copySync(path.join(__dirname, '/fixtures/config.empty.xml'), this.tmp);
         });
 
-        it('Should write the file', function(done) {
+        it('Should write the file and call the callback', function(done) {
             var result = [
                 "<?xml version='1.0' encoding='utf-8'?>",
                 '<widget id="cordova-config" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">',
@@ -609,6 +609,23 @@ describe('cordova-config', function() {
                 done();
             }.bind(this));
         });
+
+        it('Should call the callback with an error', sinon.test(function(done) {
+            // Make sure it throws an error
+            this.stub(require('fs'), 'writeFileSync').throws(new Error('Hello world'));
+
+            // Load config and set name and description
+            var config = new Config(this.tmp);
+
+            // Write the config file
+            config.write(function(err) {
+                if(err) {
+                    return done();
+                }
+
+                done(new Error('This should not be called'));
+            });
+        }));
 
         it('Should write the file and return a promise', function(done) {
             var tmp = this.tmp;
@@ -642,7 +659,7 @@ describe('cordova-config', function() {
 
         it('Should reject the promise if something went wrong', sinon.test(function(done) {
             // Make sure it throws an error
-            this.stub(fs, 'writeFileSync').throws();
+            this.stub(require('fs'), 'writeFileSync').throws(new Error('Something went wrong'));
 
             // Load config and set name and description
             var config = new Config(this.tmp);
