@@ -193,7 +193,7 @@ module.exports = (function() {
 
         if(!regex.test(version)) {
             // If the version is not valid, throw an error.
-            throw new Error('Please provide a valid version number.');
+            throw new Error('Please provide a valid iOS bundle version number.');
         }
 
         // Set the version of the widget tag
