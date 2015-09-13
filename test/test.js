@@ -355,18 +355,39 @@ describe('cordova-config', function() {
             config.setIOSBundleVersion.bind(config, 'ab').should.throw(Error);
         });
 
-        it('Should throw an error if the version equals 1', function() {
+        it('Should throw an error if the version equals 0', function() {
             // Load the config
             var config = new Config(__dirname + '/fixtures/config.xml');
 
-            config.setIOSBundleVersion.bind(config, '1').should.throw(Error);
+            config.setIOSBundleVersion.bind(config, '0').should.throw(Error);
         });
 
-        it('Should throw an error if the version equals 1.1', function() {
+        it('Should not throw an error if the version equals 1', function() {
             // Load the config
             var config = new Config(__dirname + '/fixtures/config.xml');
 
-            config.setIOSBundleVersion.bind(config, '1.1').should.throw(Error);
+            config.setIOSBundleVersion.bind(config, '1').should.not.throw(Error);
+        });
+
+        it('Should not throw an error if the version equals 1.1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setIOSBundleVersion.bind(config, '1.1').should.not.throw(Error);
+        });
+
+        it('Should throw an error if the version equals 0.1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setIOSBundleVersion.bind(config, '0.1').should.throw(Error);
+        });
+
+        it('Should not throw an error if the version equals 1.0', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setIOSBundleVersion.bind(config, '1.0').should.not.throw(Error);
         });
 
         it('Should not throw an error if the version equals 1.1.1', function() {
@@ -376,28 +397,42 @@ describe('cordova-config', function() {
             config.setIOSBundleVersion.bind(config, '1.1.1').should.not.throw(Error);
         });
 
-        it('Should not throw an error if the version equals 1.1.1.1', function() {
+        it('Should throw an error if the version equals 0.1.1', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setIOSBundleVersion.bind(config, '0.1.1').should.throw(Error);
+        });
+
+        it('Should not throw an error if the version equals 1.0.0', function() {
+            // Load the config
+            var config = new Config(__dirname + '/fixtures/config.xml');
+
+            config.setIOSBundleVersion.bind(config, '1.0.0').should.not.throw(Error);
+        });
+
+        it('Should throw an error if the version equals 1.1.1.1', function() {
             // Load the config
             var config = new Config(__dirname + '/fixtures/config.xml');
 
             config.setIOSBundleVersion.bind(config, '1.1.1.1').should.throw(Error);
         });
 
-        it('Should not throw an error if the version equals a.b.c', function() {
+        it('Should throw an error if the version equals a.b.c', function() {
             // Load the config
             var config = new Config(__dirname + '/fixtures/config.xml');
 
             config.setIOSBundleVersion.bind(config, 'a.b.c').should.throw(Error);
         });
 
-        it('Should not throw an error if the version equals 1..1', function() {
+        it('Should throw an error if the version equals 1..1', function() {
             // Load the config
             var config = new Config(__dirname + '/fixtures/config.xml');
 
             config.setIOSBundleVersion.bind(config, '1..1').should.throw(Error);
         });
 
-        it('Should not throw an error if the version equals 1.1.', function() {
+        it('Should throw an error if the version equals 1.1.', function() {
             // Load the config
             var config = new Config(__dirname + '/fixtures/config.xml');
 
