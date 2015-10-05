@@ -144,11 +144,11 @@ describe('cordova-config', function() {
         it('Should update text of an existing element', function () {
             // Load the config and set the element
             var config = new Config(__dirname + '/fixtures/config.xml');
-            config.setElement('Description', 'A statement or an account describing something');
+            config.setElement('description', 'A statement or an account describing something');
 
             // Test
-            var element = config._doc.find('./Description');
-            element.tag.should.be.equal('Description');
+            var element = config._doc.find('./description');
+            element.tag.should.be.equal('description');
             element.text.should.be.equal('A statement or an account describing something');
         });
     });
