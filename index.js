@@ -91,6 +91,37 @@ module.exports = (function() {
     };
 
     /**
+     * Sets a named element in the config.xml file.
+     *
+     * @param {string} tag The config.xml tag to set
+     * @param {string} [text] The text to set
+     * @param {object} [attribs] The attributes to set
+     */
+    Config.prototype.setElement = function (tag, text, attribs) {
+        //find the tag
+        var elementTag = this._doc.find('./' + tag);
+
+        if(!elementTag) {
+            // If no tag exists, create one
+            elementTag = new et.Element(tag);
+
+            // Add the tag to the root
+            this._root.append(elementTag);
+        }
+
+        if(text) {
+            // set the text of the tag
+            elementTag.text = text;
+        }
+
+        if(attribs !== undefined) {
+            Object.keys(attribs).forEach(function (key) {
+                elementTag.set(key, attribs[key]);
+            });
+        }
+    };
+
+    /**
      * Sets the description tag of the config.xml file.
      *
      * @param {string} description The description of the config.xml description tag.
