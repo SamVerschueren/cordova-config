@@ -108,6 +108,75 @@ describe('cordova-config', function() {
         });
     });
 
+    describe('#setElement', function () {
+        it('Should add an empty element if it does not yet exist', function () {
+            // Load the config and set the element
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setElement('earth');
+
+            // Test
+            var element = config._doc.find('./earth');
+            element.tag.should.be.equal('earth');
+        });
+
+        it('Should add an element, including text, if it does not yet exist', function () {
+            // Load the config and set the element
+            var config = new Config(__dirname + '/fixtures/config.empty.xml');
+            config.setElement('earth', 'heavy matter');
+
+            // Test
+            var element = config._doc.find('./earth');
+            element.tag.should.be.equal('earth');
+            element.text.should.be.equal('heavy matter');
+        });
+
+        it('Should update attributes of an existing element', function () {
+            // Load the config and set the element
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setElement('content', { src: 'material.html' });
+
+            // Test
+            var element = config._doc.find('./content');
+            element.tag.should.be.equal('content');
+            element.attrib.src.should.be.equal('material.html');
+        });
+
+        it('Should update text of an existing element', function () {
+            // Load the config and set the element
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setElement('description', 'A statement or an account describing something');
+
+            // Test
+            var element = config._doc.find('./description');
+            element.tag.should.be.equal('description');
+            element.text.should.be.equal('A statement or an account describing something');
+        });
+
+        it('Should update text and attributes of an existing element', function () {
+            // Load the config and set the element
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setElement('author', 'John Doe', { email: 'johndoe@example.com' });
+
+            // Test
+            var element = config._doc.find('./author');
+            element.tag.should.be.equal('author');
+            element.text.should.be.equal('John Doe');
+            element.attrib.email.should.be.equal('johndoe@example.com');
+        });
+
+        it('Should remove text and update attributes of an existing element', function () {
+            // Load the config and set the element
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setElement('author', { email: 'johndoe@example.com' });
+
+            // Test
+            var element = config._doc.find('./author');
+            element.tag.should.be.equal('author');
+            element.text.should.be.equal('');
+            element.attrib.email.should.be.equal('johndoe@example.com');
+        });
+    });
+
     describe('#setDescription', function() {
 
         it('Should add a description tag if it does not yet exist', function() {

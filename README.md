@@ -52,6 +52,29 @@ Type: `string`
 
 The name of the application.
 
+### #setElement(tag, [text], [attribs])
+
+> Sets a `<tag>text</tag>` tag in the xml file.
+
+#### tag
+
+*Required*  
+Type: `string`
+
+The name of the element.
+
+#### text
+
+Type: `string`
+
+The element text.
+
+#### attribs
+
+Type: `object`
+
+The element attributes
+
 ### #setDescription(description)
 
 > Sets the `<description>description</description>` tag in the xml file.
@@ -147,7 +170,7 @@ The value of the preference.
 
 #### origin
 
-*Required*
+*Required*  
 Type: `string`
 
 The origin of the access tag you want to remove.
@@ -186,14 +209,14 @@ The id of the widget tag.
 
 #### type
 
-*Required*
+*Required*  
 Type: `string`
 
 Cordova hook type. ex) 'after_build', 'after_compile', 'after_clean'
 
 #### src
 
-*Required*
+*Required*  
 Type: `string`
 
 Src path of hook script
@@ -204,7 +227,7 @@ Src path of hook script
 
 #### xml
 
-*Required*
+*Required*  
 Type: `string`
 
 A raw xml element. You can only pass in one element with one root.

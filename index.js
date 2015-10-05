@@ -75,19 +75,43 @@ module.exports = (function() {
      * @param {string} name The name of the config.xml name tag.
      */
     Config.prototype.setName = function(name) {
-        // Find the name tag
-        var nameTag = this._doc.find('./name');
+        this.setElement('name', name);
+    };
 
-        if(!nameTag) {
-            // If no name tag exists, create one
-            nameTag = new et.Element('name');
-
-            // Add the name tag to the root
-            this._root.append(nameTag);
+    /**
+     * Sets a named element in the config.xml file.
+     *
+     * @param {string} tag The config.xml tag to set
+     * @param {string} [text] The text to set
+     * @param {object} [attribs] The attributes to set
+     */
+    Config.prototype.setElement = function (tag, text, attribs) {
+        if (typeof text === 'object') {
+            attribs = text;
+            text = '';
         }
 
-        // Set the text of the tag
-        nameTag.text = name;
+        //find the tag
+        var elementTag = this._doc.find('./' + tag);
+
+        if(!elementTag) {
+            // If no tag exists, create one
+            elementTag = new et.Element(tag);
+
+            // Add the tag to the root
+            this._root.append(elementTag);
+        }
+
+        // set the text of the tag
+        elementTag.text = text || '';
+
+        elementTag.attrib = {};
+
+        if(attribs !== undefined) {
+            Object.keys(attribs).forEach(function (key) {
+                elementTag.set(key, attribs[key]);
+            });
+        }
     };
 
     /**
@@ -96,19 +120,7 @@ module.exports = (function() {
      * @param {string} description The description of the config.xml description tag.
      */
     Config.prototype.setDescription = function(description) {
-        // Find the description tag
-        var descriptionTag = this._doc.find('./description');
-
-        if(!descriptionTag) {
-            // If the description tag does not exists, create one
-            descriptionTag = new et.Element('description');
-
-            // Add the description tag to the root
-            this._root.append(descriptionTag);
-        }
-
-        // Set the text of the description tag
-        descriptionTag.text = description;
+        this.setElement('description', description);
     };
 
     /**
@@ -119,34 +131,17 @@ module.exports = (function() {
      * @param {string} [website]    The website of the author.
      */
     Config.prototype.setAuthor = function(name, email, website) {
-        // Find the author tag
-        var authorTag = this._doc.find('./author');
-
-        if(!authorTag) {
-            // If no author tag exists, create one
-            authorTag = new et.Element('author');
-
-            // Add the tag to the root
-            this._root.append(authorTag);
-        }
-        else {
-            // If a tag exists, first make sure to remove the attributes
-            delete authorTag.attrib.email;
-            delete authorTag.attrib.href;
-        }
-
-        // Set the text of the author tag
-        authorTag.text = name;
+        var attribs = {};
 
         if(email) {
-            // Set the email attribute
-            authorTag.attrib.email = email;
+            attribs.email = email;
         }
 
         if(website) {
-            // Set the website attribute
-            authorTag.attrib.href = website;
+            attribs.href = website;
         }
+
+        this.setElement('author', name, attribs);
     };
 
     /**
