@@ -163,6 +163,18 @@ describe('cordova-config', function() {
             element.text.should.be.equal('John Doe');
             element.attrib.email.should.be.equal('johndoe@example.com');
         });
+
+        it('Should remove text and update attributes of an existing element', function () {
+            // Load the config and set the element
+            var config = new Config(__dirname + '/fixtures/config.xml');
+            config.setElement('author', { email: 'johndoe@example.com' });
+
+            // Test
+            var element = config._doc.find('./author');
+            element.tag.should.be.equal('author');
+            element.text.should.be.equal('');
+            element.attrib.email.should.be.equal('johndoe@example.com');
+        });
     });
 
     describe('#setDescription', function() {
