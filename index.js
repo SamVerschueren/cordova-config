@@ -98,6 +98,11 @@ module.exports = (function() {
      * @param {object} [attribs] The attributes to set
      */
     Config.prototype.setElement = function (tag, text, attribs) {
+        if (typeof text === 'object') {
+            attribs = text;
+            text = '';
+        }
+
         //find the tag
         var elementTag = this._doc.find('./' + tag);
 
