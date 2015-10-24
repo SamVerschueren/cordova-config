@@ -52,7 +52,7 @@ Type: `string`
 
 The name of the application.
 
-### #setElement(tag [, text [, attribs]])
+### #setElement(tag, [text], [attribs])
 
 > Sets a `<tag>text</tag>` tag in the xml file.
 
