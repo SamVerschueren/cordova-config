@@ -102,12 +102,8 @@ module.exports = (function() {
             this._root.append(elementTag);
         }
 
-        if (text) {
-            // set the text of the tag
-            elementTag.text = text;
-        } else {
-            elementTag.text = '';
-        }
+        // set the text of the tag
+        elementTag.text = text || '';
 
         elementTag.attrib = {};
 

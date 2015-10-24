@@ -36,7 +36,7 @@ config.writeSync();
 
 #### file
 
-*Required*
+*Required*  
 Type: `string`
 
 The path to the `config.xml` file.
@@ -47,7 +47,7 @@ The path to the `config.xml` file.
 
 #### name
 
-*Required*
+*Required*  
 Type: `string`
 
 The name of the application.
@@ -58,7 +58,7 @@ The name of the application.
 
 #### tag
 
-*Required*
+*Required*  
 Type: `string`
 
 The name of the element.
@@ -71,7 +71,7 @@ The element text.
 
 #### attribs
 
-Type: object
+Type: `object`
 
 The element attributes
 
@@ -81,7 +81,7 @@ The element attributes
 
 #### description
 
-*Required*
+*Required*  
 Type: `string`
 
 The description of the application.
@@ -92,7 +92,7 @@ The description of the application.
 
 #### name
 
-*Required*
+*Required*  
 Type: `string`
 
 The name of the author.
@@ -115,7 +115,7 @@ The website of the author.
 
 #### version
 
-*Required*
+*Required*  
 Type: `string`
 
 The version in the format `x.y.z`.
@@ -126,7 +126,7 @@ The version in the format `x.y.z`.
 
 #### version
 
-*Required*
+*Required*  
 Type: `number`
 
 The Android version code.
@@ -137,7 +137,7 @@ The Android version code.
 
 #### version
 
-*Required*
+*Required*  
 Type: `string`
 
 The version in the format `x.y.z`.
@@ -148,14 +148,14 @@ The version in the format `x.y.z`.
 
 #### name
 
-*Required*
+*Required*  
 Type: `string`
 
 The name of the preference tag.
 
 #### value
 
-*Required*
+*Required*  
 Type: `string|boolean`
 
 The value of the preference.
@@ -170,7 +170,7 @@ The value of the preference.
 
 #### origin
 
-*Required*
+*Required*  
 Type: `string`
 
 The origin of the access tag you want to remove.
@@ -181,7 +181,7 @@ The origin of the access tag you want to remove.
 
 #### origin
 
-*Required*
+*Required*  
 Type: `string`
 
 The origin of the access tag.
@@ -198,7 +198,7 @@ A map with extra attributes that will be added to the access tag.
 
 #### id
 
-*Required*
+*Required*  
 Type: `string`
 
 The id of the widget tag.
@@ -209,14 +209,14 @@ The id of the widget tag.
 
 #### type
 
-*Required*
+*Required*  
 Type: `string`
 
 Cordova hook type. ex) 'after_build', 'after_compile', 'after_clean'
 
 #### src
 
-*Required*
+*Required*  
 Type: `string`
 
 Src path of hook script
@@ -227,7 +227,7 @@ Src path of hook script
 
 #### xml
 
-*Required*
+*Required*  
 Type: `string`
 
 A raw xml element. You can only pass in one element with one root.
@@ -238,7 +238,7 @@ A raw xml element. You can only pass in one element with one root.
 
 #### cb
 
-*Required*
+*Required*  
 Type: `function`
 
 The callback function that is called when the file is written.
