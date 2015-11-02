@@ -232,16 +232,11 @@ Type: `string`
 
 A raw xml element. You can only pass in one element with one root.
 
-### #write(cb)
+### #write()
 
 > Writes the `config.xml` file async.
 
-#### cb
-
-*Required*  
-Type: `function`
-
-The callback function that is called when the file is written.
+Resolves a promise when the file is written.
 
 ### #writeSync()
 
