@@ -4,8 +4,8 @@
   "description": "Parse and edit the config.xml file of a cordova project",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha test",
-    "coveralls": "node_modules/.bin/istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | node_modules/.bin/coveralls && rm -rf ./coverage"
+    "test": "xo && mocha test",
+    "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,15 @@
     "istanbul": "^0.3.18",
     "mocha": "^2.2.5",
     "sinon": "^1.16.1",
-    "tempfile": "^1.1.1"
+    "tempfile": "^1.1.1",
+    "xo": "*"
+  },
+  "xo": {
+    "ignores": [
+      "test/test.js"
+    ],
+    "rules": {
+      "new-cap": [2, {"capIsNewExceptions": ["XML"]}]
+    }
   }
 }
