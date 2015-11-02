@@ -30,6 +30,7 @@
   ],
   "dependencies": {
     "elementtree": "^0.1.6",
+    "pify": "^2.3.0",
     "pinkie-promise": "^1.0.0"
   },
   "devDependencies": {
@@ -47,7 +48,14 @@
       "test/test.js"
     ],
     "rules": {
-      "new-cap": [2, {"capIsNewExceptions": ["XML"]}]
+      "new-cap": [
+        2,
+        {
+          "capIsNewExceptions": [
+            "XML"
+          ]
+        }
+      ]
     }
   }
 }

@@ -10,6 +10,7 @@
 // module dependencies
 var fs = require('fs');
 var et = require('elementtree');
+var pify = require('pify');
 var Promise = require('pinkie-promise');
 
 module.exports = (function () {
@@ -17,8 +18,8 @@ module.exports = (function () {
 		/**
 		 * This method parses the xml file provided.
 		 *
-		 * @param  {string}	  file The XML file that should be parsed.
-		 * @return {ElementTree}	  The XML document.
+		 * @param  {string}	file		The XML file that should be parsed.
+		 * @return {ElementTree}		The XML document.
 		 */
 		parse: function (file) {
 			var contents = fs.readFileSync(file, 'utf-8');
@@ -43,7 +44,7 @@ module.exports = (function () {
 	/**
 	 * Creates a new Config object.
 	 *
-	 * @param {string} file The path to the XML config file.
+	 * @param {string}	file		The path to the XML config file.
 	 */
 	function Config(file) {
 		this._file = file;
@@ -54,7 +55,7 @@ module.exports = (function () {
 	/**
 	 * Sets the ID of the config file.
 	 *
-	 * @param {string} id The ID of the config file.
+	 * @param {string}	id			The ID of the config file.
 	 */
 	Config.prototype.setID = function (id) {
 		var regex = new RegExp('^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-‌​\.\?\,\'\/\\\+&amp;%\$#_]*)?$');
@@ -71,7 +72,7 @@ module.exports = (function () {
 	/**
 	 * Sets the name tag of the config.xml file.
 	 *
-	 * @param {string} name The name of the config.xml name tag.
+	 * @param {string}	name		The name of the config.xml name tag.
 	 */
 	Config.prototype.setName = function (name) {
 		this.setElement('name', name);
@@ -80,9 +81,9 @@ module.exports = (function () {
 	/**
 	 * Sets a named element in the config.xml file.
 	 *
-	 * @param {string} tag The config.xml tag to set
-	 * @param {string} [text] The text to set
-	 * @param {object} [attribs] The attributes to set
+	 * @param {string}	tag			The config.xml tag to set
+	 * @param {string}	[text]		The text to set
+	 * @param {object}	[attribs] 	The attributes to set
 	 */
 	Config.prototype.setElement = function (tag, text, attribs) {
 		if (typeof text === 'object') {
@@ -116,7 +117,7 @@ module.exports = (function () {
 	/**
 	 * Sets the description tag of the config.xml file.
 	 *
-	 * @param {string} description The description of the config.xml description tag.
+	 * @param {string}	description	The description of the config.xml description tag.
 	 */
 	Config.prototype.setDescription = function (description) {
 		this.setElement('description', description);
@@ -125,9 +126,9 @@ module.exports = (function () {
 	/**
 	 * Sets the author in the config file.
 	 *
-	 * @param {string} name		 The name of the author.
-	 * @param {string} [email]	  The email address of the author.
-	 * @param {string} [website]	The website of the author.
+	 * @param {string}	name		The name of the author.
+	 * @param {string}	[email]		The email address of the author.
+	 * @param {string}	[website]	The website of the author.
 	 */
 	Config.prototype.setAuthor = function (name, email, website) {
 		var attribs = {};
@@ -146,7 +147,7 @@ module.exports = (function () {
 	/**
 	 * Sets the version of the config file.
 	 *
-	 * @param {string}  version		 The version number.
+	 * @param {string}	version		The version number.
 	 */
 	Config.prototype.setVersion = function (version) {
 		var regex = new RegExp('^[0-9]+\.[0-9]+\.[0-9]+$');
@@ -163,7 +164,7 @@ module.exports = (function () {
 	/**
 	 * Sets the Android version code of the config file.
 	 *
-	 * @param {number}  versionCode	 The android version code.
+	 * @param {number}	versionCode	The android version code.
 	 */
 	Config.prototype.setAndroidVersionCode = function (versionCode) {
 		var regex = new RegExp('^[0-9]+$');
@@ -180,7 +181,7 @@ module.exports = (function () {
 	/**
 	 * Sets the iOS CFBundleVersion of the config file.
 	 *
-	 * @param {string}  version		 The iOS CFBundleVersion.
+	 * @param {string}	version		The iOS CFBundleVersion.
 	 */
 	Config.prototype.setIOSBundleVersion = function (version) {
 		var regex = new RegExp('^[1-9][0-9]*(\.[0-9]+){0,2}$');
@@ -196,8 +197,8 @@ module.exports = (function () {
 
 	/**
 	 * Adds or updates the preference `name` with the
-	 * @param {string} name  The name of the preference.
-	 * @param {*}	  value The value of the preference.
+	 * @param {string}	name		The name of the preference.
+	 * @param {any}		value		The value of the preference.
 	 */
 	Config.prototype.setPreference = function (name, value) {
 		// Retrieve the correct preference
@@ -231,7 +232,7 @@ module.exports = (function () {
 	/**
 	 * Removes the access origin tag from the XML file if it exists.
 	 *
-	 * @param  {string} origin The origin that should be removed.
+	 * @param {string}	origin		The origin that should be removed.
 	 */
 	Config.prototype.removeAccessOrigin = function (origin) {
 		var accessOrigin = this._doc.find('./access/[@origin="' + origin + '"]');
@@ -246,8 +247,8 @@ module.exports = (function () {
 	 * Adds a new <access /> tag to the XML file. If an access tag with that origin
 	 * already exist, it will be overwritten.
 	 *
-	 * @param {string} origin	   The origin of the access tag.
-	 * @param {object} [options]	Extra properties that should be added to the access tag.
+	 * @param {string}	origin		The origin of the access tag.
+	 * @param {object}	[options]	Extra properties that should be added to the access tag.
 	 */
 	Config.prototype.setAccessOrigin = function (origin, options) {
 		options = options || {};
@@ -271,8 +272,9 @@ module.exports = (function () {
 	/**
 	 * Adds the hook with type and src.
 	 * see [Apache Cordova API Documentation](https://goo.gl/5QZlqu) for more info
-	 * @param {string} type  cordova hook type
-	 * @param {string} src   src of script
+	 *
+	 * @param {string}	type		The cordova hook type.
+	 * @param {string}	src			The source of the script.
 	 */
 	Config.prototype.addHook = function (type, src) {
 		var cordovaHookTypes = [
@@ -302,7 +304,7 @@ module.exports = (function () {
 	/**
 	 * This method adds the raw XML provided to the config.xml file.
 	 *
-	 * @param {string}  raw		 The raw XML that should be added to the config file.
+	 * @param {string}	raw			The raw XML that should be added to the config file.
 	 */
 	Config.prototype.addRawXML = function (raw) {
 		// Parse the raw XML
@@ -315,28 +317,10 @@ module.exports = (function () {
 	/**
 	 * Writes the config file async.
 	 *
-	 * @param   {function} [cb]	 The callback function invoked when the file is written.
-	 * @returns {Promise}		   A promise that will be resolved if the file was written successfully.
+	 * @returns {Promise}			A promise that resolves when the file is written.
 	 */
-	Config.prototype.write = function (cb) {
-		return new Promise(function (resolve, reject) {
-			try {
-				// Write the file
-				fs.writeFileSync(this._file, this._doc.write({indent: 4}), 'utf-8');
-
-				// Execute the callback and resolve the promise
-				if (cb) {
-					cb();
-				}
-				resolve();
-			} catch (err) {
-				// Execute the callback and reject the promise
-				if (cb) {
-					cb(err);
-				}
-				reject(err);
-			}
-		}.bind(this));
+	Config.prototype.write = function () {
+		return pify(fs.writeFile, Promise)(this._file, this._doc.write({indent: 4}), 'utf8');
 	};
 
 	/**
