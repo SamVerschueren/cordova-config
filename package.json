@@ -4,8 +4,8 @@
   "description": "Parse and edit the config.xml file of a cordova project",
   "main": "index.js",
   "scripts": {
-    "test": "xo && mocha test",
-    "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
+    "test": "xo && nyc ava",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -34,19 +34,14 @@
     "pinkie-promise": "^1.0.0"
   },
   "devDependencies": {
-    "chai": "^3.2.0",
+    "ava": "*",
     "coveralls": "^2.11.4",
     "fs-extra": "^0.24.0",
-    "istanbul": "^0.3.18",
-    "mocha": "^2.2.5",
-    "sinon": "^1.16.1",
+    "nyc": "^3.2.2",
     "tempfile": "^1.1.1",
     "xo": "*"
   },
   "xo": {
-    "ignores": [
-      "test/test.js"
-    ],
     "rules": {
       "new-cap": [
         2,
