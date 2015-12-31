@@ -5,21 +5,21 @@
 
 > Parse and edit the config.xml file of a cordova project.
 
-*See [cordova-config-cli](https://github.com/ragingwind/cordova-config-cli) for the command-line version.*
 
-## Installation
+## Install
 
-```bash
+```
 npm install --save cordova-config
 ```
 
+
 ## Usage
 
-```javascript
-var Config = require('cordova-config');
+```js
+const Config = require('cordova-config');
 
 // Load and parse the config.xml
-var config = new Config('config.xml');
+const config = new Config('config.xml');
 config.setName('My application');
 config.setDescription('This is the description of my application');
 config.setAuthor('Sam Verschueren', 'sam.verschueren@gmail.com', 'https://github.com/SamVerschueren');
@@ -242,10 +242,11 @@ Resolves a promise when the file is written.
 
 > Writes the `config.xml` file synchronously.
 
-## Contributors
 
-- Sam Verschueren (Author)
-- [Jimmy Moon](https://github.com/ragingwind)
+## Related
+
+- [cordova-config-cli](https://github.com/ragingwind/cordova-config-cli) - CLI for this module
+
 
 ## License
 
