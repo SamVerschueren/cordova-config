@@ -179,6 +179,22 @@ module.exports = (function () {
 	};
 
 	/**
+   * Sets the Android package name of the config file.
+   *
+   * @param {string}    packageName    The android package name.
+   */
+  Config.prototype.setAndroidPackageName = function(packageName) {
+      var regex = new RegExp('[\\w.]+');
+      if (!regex.test(packageName)) {
+          // If the name is not valid, throw an error.
+          throw new Error('Please provide a valid Android package name.');
+      }
+
+      // Set the version of the widget tag
+      this._root.attrib['android-packageName'] = packageName;
+  };
+
+	/**
 	 * Sets the iOS CFBundleVersion of the config file.
 	 *
 	 * @param {string}	version		The iOS CFBundleVersion.
@@ -194,6 +210,23 @@ module.exports = (function () {
 		// Set the version of the widget tag
 		this._root.attrib['ios-CFBundleVersion'] = version;
 	};
+
+  /**
+   * Sets the iOS CFBundleIdentifier of the config file.
+   *
+   * @param {string}    identifier        The iOS CFBundleIdentifier.
+   */
+  Config.prototype.setIOSBundleIdentifier = function(identifier) {
+      var regex = new RegExp('[\w.]+');
+
+      if (!regex.test(identifier)) {
+          // If the identifier is not valid, throw an error.
+          throw new Error('Please provide a valid iOS bundle identifier number.');
+      }
+
+      // Set the identifier of the widget tag
+      this._root.attrib['ios-CFBundleIdentifier'] = identifier;
+  };
 
 	/**
 	 * Adds or updates the preference `name` with the
