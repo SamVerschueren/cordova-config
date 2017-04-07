@@ -17,9 +17,9 @@ test('throw error', t => {
 test('not throw error', t => {
 	const config = new Config('fixtures/config.xml');
 
-	t.doesNotThrow(config.setIOSBundleVersion.bind(config, '1'));
-	t.doesNotThrow(config.setIOSBundleVersion.bind(config, '1.1'));
-	t.doesNotThrow(config.setIOSBundleVersion.bind(config, '1.1.1'));
+	t.notThrows(config.setIOSBundleVersion.bind(config, '1'));
+	t.notThrows(config.setIOSBundleVersion.bind(config, '1.1'));
+	t.notThrows(config.setIOSBundleVersion.bind(config, '1.1.1'));
 });
 
 test('set iOS Bundle version', t => {

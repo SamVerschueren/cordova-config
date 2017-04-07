@@ -29,7 +29,7 @@ module.exports = (function () {
 				contents = contents.substring(contents.indexOf('<'));
 			}
 
-			var doc = new et.ElementTree(et.XML(contents));
+			var doc = new et.ElementTree(et.XML(contents));		// eslint-disable-line babel/new-cap
 			var root = doc.getroot();
 
 			if (root.tag !== 'widget') {
@@ -58,7 +58,7 @@ module.exports = (function () {
 	 * @param {string}	id			The ID of the config file.
 	 */
 	Config.prototype.setID = function (id) {
-		var regex = new RegExp('^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-‌​\.\?\,\'\/\\\+&amp;%\$#_]*)?$');
+		var regex = new RegExp('^[0-9a-zA-Z]([-.w]*[0-9a-zA-Z])*(:(0-9)*)*(/?)([a-zA-Z0-9-‌​.?,\'/\\+&amp;%$#_]*)?$');
 
 		if (!regex.test(id)) {
 			// If the id is not IRI, throw an error.
@@ -150,7 +150,7 @@ module.exports = (function () {
 	 * @param {string}	version		The version number.
 	 */
 	Config.prototype.setVersion = function (version) {
-		var regex = new RegExp('^[0-9]+\.[0-9]+\.[0-9]+$');
+		var regex = new RegExp('^[0-9]+.[0-9]+.[0-9]+$');
 
 		if (!regex.test(version)) {
 			// If the version is not valid, throw an error.
@@ -184,7 +184,7 @@ module.exports = (function () {
 	 * @param {string}	version		The iOS CFBundleVersion.
 	 */
 	Config.prototype.setIOSBundleVersion = function (version) {
-		var regex = new RegExp('^[1-9][0-9]*(\.[0-9]+){0,2}$');
+		var regex = new RegExp('^[1-9][0-9]*(.[0-9]+){0,2}$');
 
 		if (!regex.test(version)) {
 			// If the version is not valid, throw an error.
@@ -308,7 +308,7 @@ module.exports = (function () {
 	 */
 	Config.prototype.addRawXML = function (raw) {
 		// Parse the raw XML
-		var xml = et.XML(raw);
+		var xml = et.XML(raw);		// eslint-disable-line babel/new-cap
 
 		// Append the XML
 		this._root.append(xml);

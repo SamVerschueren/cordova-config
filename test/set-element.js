@@ -48,7 +48,7 @@ test('update text', t => {
 
 	t.is(element.tag, 'author');
 	t.is(element.text, 'Foo Bar');
-	t.same(element.attrib, {});
+	t.deepEqual(element.attrib, {});
 });
 
 test('update attributes', t => {
@@ -59,7 +59,7 @@ test('update attributes', t => {
 
 	t.is(element.tag, 'author');
 	t.is(element.text, '');
-	t.same(element.attrib, {email: 'foo@bar.com'});
+	t.deepEqual(element.attrib, {email: 'foo@bar.com'});
 });
 
 test('update text and attributes', t => {
@@ -70,5 +70,5 @@ test('update text and attributes', t => {
 
 	t.is(element.tag, 'author');
 	t.is(element.text, 'Foo Bar');
-	t.same(element.attrib, {email: 'foo@bar.com'});
+	t.deepEqual(element.attrib, {email: 'foo@bar.com'});
 });

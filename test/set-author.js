@@ -8,7 +8,7 @@ test('add tag', t => {
 	t.is(config._root._children.length, 1);
 	t.is(config._root._children[0].tag, 'author');
 	t.is(config._root._children[0].text, 'John Doe');
-	t.same(config._root._children[0].attrib, {});
+	t.deepEqual(config._root._children[0].attrib, {});
 });
 
 test('add tag with email attribute', t => {
@@ -18,7 +18,7 @@ test('add tag with email attribute', t => {
 	t.is(config._root._children.length, 1);
 	t.is(config._root._children[0].tag, 'author');
 	t.is(config._root._children[0].text, 'John Doe');
-	t.same(config._root._children[0].attrib, {email: 'john.doe@testers.com'});
+	t.deepEqual(config._root._children[0].attrib, {email: 'john.doe@testers.com'});
 });
 
 test('add tag with email and href attribute', t => {
@@ -28,7 +28,7 @@ test('add tag with email and href attribute', t => {
 	t.is(config._root._children.length, 1);
 	t.is(config._root._children[0].tag, 'author');
 	t.is(config._root._children[0].text, 'John Doe');
-	t.same(config._root._children[0].attrib, {email: 'john.doe@testers.com', href: 'http://john.doe.com'});
+	t.deepEqual(config._root._children[0].attrib, {email: 'john.doe@testers.com', href: 'http://john.doe.com'});
 });
 
 test('overwrite tag', t => {
@@ -39,7 +39,7 @@ test('overwrite tag', t => {
 
 	t.is(element.tag, 'author');
 	t.is(element.text, 'John Doe');
-	t.same(element.attrib, {});
+	t.deepEqual(element.attrib, {});
 });
 
 test('overwrite tag and remove other attributes', t => {
@@ -50,5 +50,5 @@ test('overwrite tag and remove other attributes', t => {
 
 	t.is(element.tag, 'author');
 	t.is(element.text, 'John Doe');
-	t.same(element.attrib, {email: 'john.doe@testers.com'});
+	t.deepEqual(element.attrib, {email: 'john.doe@testers.com'});
 });
