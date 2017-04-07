@@ -131,6 +131,17 @@ Type: `number`
 
 The Android version code.
 
+### #setAndroidPackageName(packageName)
+
+> Sets the Android package name of the config file.
+
+#### packageName
+
+*Required*  
+Type: `string`
+
+The android package name.
+
 ### #setIOSBundleVersion(version)
 
 > Sets the ios-CFBundleVersion attribute of the `widget` tag in the xml file.
@@ -141,6 +152,17 @@ The Android version code.
 Type: `string`
 
 The version in the format `x.y.z`.
+
+### #setIOSBundleIdentifier(identifier)
+
+> Sets the iOS CFBundleIdentifier of the config file.
+
+#### identifier
+
+*Required*  
+Type: `string`
+
+The iOS `CFBundleIdentifier`.
 
 ### #setPreference(name, value)
 
