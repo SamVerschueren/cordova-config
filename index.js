@@ -145,6 +145,21 @@ module.exports = (function () {
 	};
 
 	/**
+	 * Sets the content in the config file.
+	 *
+	 * @param {string}	src		The content file
+	 */
+	Config.prototype.setContent = function (src) {
+		var attribs = {};
+
+		if (src) {
+			attribs.src = src;
+		}
+
+		this.setElement('content', '', attribs);
+	};
+
+	/**
 	 * Sets the version of the config file.
 	 *
 	 * @param {string}	version		The version number.
