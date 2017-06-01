@@ -12,6 +12,7 @@ var fs = require('fs');
 var et = require('elementtree');
 var pify = require('pify');
 var Promise = require('pinkie-promise');
+var semver = require('semver');
 
 module.exports = (function () {
 	var _this = {
@@ -149,10 +150,10 @@ module.exports = (function () {
 	 *
 	 * @param {string}	version		The version number.
 	 */
-	Config.prototype.setVersion = function (version) {
+	Config.prototype.setVersion = function (version, allowSemver) {
 		var regex = new RegExp('^[0-9]+.[0-9]+.[0-9]+$');
 
-		if (!regex.test(version)) {
+		if ((!allowSemver && !regex.test(version)) || (allowSemver && !semver.valid(version))) {
 			// If the version is not valid, throw an error.
 			throw new Error('Please provide a valid version number.');
 		}
