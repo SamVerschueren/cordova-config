@@ -109,7 +109,7 @@ Type: `string`
 
 The website of the author.
 
-### #setVersion(version)
+### #setVersion(version [, allowSemver])
 
 > Sets the version attribute of the `widget` tag in the xml file.
 
@@ -119,6 +119,12 @@ The website of the author.
 Type: `string`
 
 The version in the format `x.y.z`.
+
+#### allowSemver
+
+Type: `boolean`
+
+Allows semver version formats. Version is checked via `semver.valid(version)`  
 
 ### #setAndroidVersionCode(version)
 
@@ -152,6 +158,7 @@ The android package name.
 Type: `string`
 
 The version in the format `x.y.z`.
+
 
 ### #setIOSBundleIdentifier(identifier)
 
