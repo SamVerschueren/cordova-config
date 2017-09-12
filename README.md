@@ -75,6 +75,31 @@ Type: `object`
 
 The element attributes
 
+### #setPluginVariable(pluginName, variableName, variableValue)
+
+> Sets a `<plugin name=pluginName><variable name=variableName value=variableValue></variable></plugin>` tag in the xml file.
+
+#### pluginName
+
+*Required*  
+Type: `string`
+
+Plugin name.
+
+#### variableName
+
+*Required*
+Type: `string`
+
+Variable name.
+
+#### variableValue
+
+*Required*
+Type: `string`
+
+Variable value.
+
 ### #setDescription(description)
 
 > Sets the `<description>description</description>` tag in the xml file.
