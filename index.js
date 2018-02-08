@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * This module represents the config.xml file.
  *
@@ -29,7 +27,7 @@ module.exports = (function () {
 				contents = contents.substring(contents.indexOf('<'));
 			}
 
-			var doc = new et.ElementTree(et.XML(contents));		// eslint-disable-line babel/new-cap
+			var doc = new et.ElementTree(et.XML(contents)); // eslint-disable-line babel/new-cap
 			var root = doc.getroot();
 
 			if (root.tag !== 'widget') {
@@ -112,6 +110,44 @@ module.exports = (function () {
 				elementTag.set(key, attribs[key]);
 			});
 		}
+	};
+
+	/**
+	 * Sets a plugin variable value in the config.xml file.
+	 *
+	 * @param {string}	pluginName		Plugin name
+	 * @param {string}	variableName		Variable name
+	 * @param {object}	variableValue		Variable value
+	 */
+	Config.prototype.setPluginVariable = function (pluginName, variableName, variableValue) {
+		// find the plugin
+		var plugin = this._doc.find('./plugin/[@name="' + pluginName + '"]');
+
+		if (!plugin) {
+			// If no plugin exists, create one
+			plugin = new et.Element('plugin');
+
+			plugin.attrib = {};
+			plugin.set('name', pluginName);
+
+			// Add the plugin to the root
+			this._root.append(plugin);
+		}
+
+		var variable = plugin.find('./variable/[@name="' + variableName + '"]');
+
+		if (!variable) {
+			// If no variable exists, create one
+			variable = new et.Element('variable');
+
+			variable.attrib = {};
+			variable.set('name', variableName);
+
+			// Add the variable to the plugin
+			plugin.append(variable);
+		}
+
+		variable.set('value', variableValue);
 	};
 
 	/**
@@ -342,7 +378,7 @@ module.exports = (function () {
 	 */
 	Config.prototype.addRawXML = function (raw) {
 		// Parse the raw XML
-		var xml = et.XML(raw);		// eslint-disable-line babel/new-cap
+		var xml = et.XML(raw); // eslint-disable-line babel/new-cap
 
 		// Append the XML
 		this._root.append(xml);
@@ -354,14 +390,18 @@ module.exports = (function () {
 	 * @returns {Promise}			A promise that resolves when the file is written.
 	 */
 	Config.prototype.write = function () {
-		return pify(fs.writeFile, Promise)(this._file, this._doc.write({indent: 4}), 'utf8');
+		return pify(fs.writeFile, Promise)(this._file, this._doc.write({
+			indent: 4
+		}), 'utf8');
 	};
 
 	/**
 	 * The same as `write` but sync.
 	 */
 	Config.prototype.writeSync = function () {
-		fs.writeFileSync(this._file, this._doc.write({indent: 4}), 'utf-8');
+		fs.writeFileSync(this._file, this._doc.write({
+			indent: 4
+		}), 'utf-8');
 	};
 
 	return Config;
