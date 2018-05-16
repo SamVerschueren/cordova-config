@@ -115,13 +115,13 @@ module.exports = (function () {
 	};
 
 	/**
-	 * Sets a plugin variable value in the config.xml file.
+	 * Adds a plugin variable value in config.xml file, or sets the new value if the variable already exists for the specified plugin
 	 *
-	 * @param {string}	pluginName		Plugin name
+	 * @param {string}	pluginName		  Plugin name
 	 * @param {string}	variableName		Variable name
 	 * @param {object}	variableValue		Variable value
 	 */
-	Config.prototype.setPluginVariable = function (pluginName, variableName, variableValue) {
+	Config.prototype.addPluginVariable = function (pluginName, variableName, variableValue) {
 		// find the plugin
 		var plugin = this._doc.find('./plugin/[@name="' + pluginName + '"]');
 

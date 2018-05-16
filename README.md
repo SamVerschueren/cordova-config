@@ -75,9 +75,9 @@ Type: `object`
 
 The element attributes
 
-### #setPluginVariable(pluginName, variableName, variableValue)
+### addPluginVariable(pluginName, variableName, variableValue)
 
-> Sets a `<plugin name=pluginName><variable name=variableName value=variableValue></variable></plugin>` tag in the xml file.
+> Adds a `<plugin name=pluginName><variable name=variableName value=variableValue></variable></plugin>` tag in the xml file, or sets the new value if the variable already exists for the specified plugin.
 
 #### pluginName
 
