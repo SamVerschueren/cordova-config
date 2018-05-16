@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * This module represents the config.xml file.
  *
@@ -27,7 +29,7 @@ module.exports = (function () {
 				contents = contents.substring(contents.indexOf('<'));
 			}
 
-			var doc = new et.ElementTree(et.XML(contents)); // eslint-disable-line babel/new-cap
+			var doc = new et.ElementTree(et.XML(contents));		// eslint-disable-line babel/new-cap
 			var root = doc.getroot();
 
 			if (root.tag !== 'widget') {
@@ -378,7 +380,7 @@ module.exports = (function () {
 	 */
 	Config.prototype.addRawXML = function (raw) {
 		// Parse the raw XML
-		var xml = et.XML(raw); // eslint-disable-line babel/new-cap
+		var xml = et.XML(raw);		// eslint-disable-line babel/new-cap
 
 		// Append the XML
 		this._root.append(xml);
@@ -390,18 +392,14 @@ module.exports = (function () {
 	 * @returns {Promise}			A promise that resolves when the file is written.
 	 */
 	Config.prototype.write = function () {
-		return pify(fs.writeFile, Promise)(this._file, this._doc.write({
-			indent: 4
-		}), 'utf8');
+		return pify(fs.writeFile, Promise)(this._file, this._doc.write({indent: 4}), 'utf8');
 	};
 
 	/**
 	 * The same as `write` but sync.
 	 */
 	Config.prototype.writeSync = function () {
-		fs.writeFileSync(this._file, this._doc.write({
-			indent: 4
-		}), 'utf-8');
+		fs.writeFileSync(this._file, this._doc.write({indent: 4}), 'utf-8');
 	};
 
 	return Config;
