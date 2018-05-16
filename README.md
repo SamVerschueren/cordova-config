@@ -41,7 +41,7 @@ Type: `string`
 
 The path to the `config.xml` file.
 
-### #setName(name)
+### setName(name)
 
 > Sets the `<name>name</name>` tag in the xml file.
 
@@ -52,7 +52,7 @@ Type: `string`
 
 The name of the application.
 
-### #setElement(tag, [text], [attribs])
+### setElement(tag, [text], [attribs])
 
 > Sets a `<tag>text</tag>` tag in the xml file.
 
@@ -100,7 +100,7 @@ Type: `string`
 
 Variable value.
 
-### #setDescription(description)
+### setDescription(description)
 
 > Sets the `<description>description</description>` tag in the xml file.
 
@@ -111,7 +111,7 @@ Type: `string`
 
 The description of the application.
 
-### #setAuthor(name [, email [, website]])
+### setAuthor(name [, email [, website]])
 
 > Sets the `<author email="email" href="website">name</author>` tag in the xml file.
 
@@ -134,7 +134,7 @@ Type: `string`
 
 The website of the author.
 
-### #setVersion(version)
+### setVersion(version)
 
 > Sets the version attribute of the `widget` tag in the xml file.
 
@@ -145,7 +145,7 @@ Type: `string`
 
 The version in the format `x.y.z`.
 
-### #setAndroidVersionCode(version)
+### setAndroidVersionCode(version)
 
 > Sets the android-versionCode attribute of the `widget` tag in the xml file.
 
@@ -156,7 +156,7 @@ Type: `number`
 
 The Android version code.
 
-### #setAndroidPackageName(packageName)
+### setAndroidPackageName(packageName)
 
 > Sets the Android package name of the config file.
 
@@ -167,7 +167,7 @@ Type: `string`
 
 The android package name.
 
-### #setIOSBundleVersion(version)
+### setIOSBundleVersion(version)
 
 > Sets the ios-CFBundleVersion attribute of the `widget` tag in the xml file.
 
@@ -178,7 +178,7 @@ Type: `string`
 
 The version in the format `x.y.z`.
 
-### #setIOSBundleIdentifier(identifier)
+### setIOSBundleIdentifier(identifier)
 
 > Sets the iOS CFBundleIdentifier of the config file.
 
@@ -189,7 +189,7 @@ Type: `string`
 
 The iOS `CFBundleIdentifier`.
 
-### #setPreference(name, value)
+### setPreference(name, value)
 
 > Adds a `<preference name="name" value="value" />` tag to the xml file.
 
@@ -207,11 +207,11 @@ Type: `string|boolean`
 
 The value of the preference.
 
-### #removeAccessOrigins()
+### removeAccessOrigins()
 
 > Removes all the `<access />` tags in the xml file.
 
-### #removeAccessOrigin(origin)
+### removeAccessOrigin(origin)
 
 > Removes the `<access />` tag with the origin equal to the parameter.
 
@@ -222,7 +222,7 @@ Type: `string`
 
 The origin of the access tag you want to remove.
 
-### #setAccessOrigin(origin [, options])
+### setAccessOrigin(origin [, options])
 
 > Adds an `<access />` tag to the xml file.
 
@@ -239,7 +239,7 @@ Type: `object`
 
 A map with extra attributes that will be added to the access tag.
 
-### #setID(id)
+### setID(id)
 
 > Sets the ID of the config file.
 
@@ -250,7 +250,7 @@ Type: `string`
 
 The id of the widget tag.
 
-### #addHook(type, src)
+### addHook(type, src)
 
 > Adds the hook with type and src. see [Apache Cordova API Documentation](https://goo.gl/5QZlqu) for more info.
 
@@ -268,7 +268,7 @@ Type: `string`
 
 Src path of hook script
 
-### #addRawXML(xml)
+### addRawXML(xml)
 
 > Adds a raw xml element to the root of the config file.
 
@@ -279,13 +279,13 @@ Type: `string`
 
 A raw xml element. You can only pass in one element with one root.
 
-### #write()
+### write()
 
 > Writes the `config.xml` file async.
 
 Resolves a promise when the file is written.
 
-### #writeSync()
+### writeSync()
 
 > Writes the `config.xml` file synchronously.
 
