@@ -3,7 +3,7 @@ import Config from '../';
 
 test('add plugin', t => {
 	const config = new Config('fixtures/config.empty.xml');
-	config.setPluginVariable('earth');
+	config.addPluginVariable('earth');
 
 	t.is(config._root._children.length, 1);
 	t.is(config._root._children[0].tag, 'plugin');
@@ -12,7 +12,7 @@ test('add plugin', t => {
 
 test('add plugin with variable', t => {
 	const config = new Config('fixtures/config.empty.xml');
-	config.setPluginVariable('earth', 'id', '123');
+	config.addPluginVariable('earth', 'id', '123');
 
 	t.is(config._root._children.length, 1);
 	t.is(config._root._children[0].tag, 'plugin');
