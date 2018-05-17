@@ -23,7 +23,7 @@ test('add a new plugin with a variable', t => {
 	t.is(config._root._children[0]._children[0].attrib.value, '123');
 });
 
-test('add a variable to a existing plugin', t => {
+test('add a variable to an existing plugin', t => {
 	const config = new Config('fixtures/config.plugin.xml');
 	config.addPluginVariable('earth', 'id', '123');
 
@@ -34,17 +34,4 @@ test('add a variable to a existing plugin', t => {
 	t.is(config._root._children[0]._children[0].tag, 'variable');
 	t.is(config._root._children[0]._children[0].attrib.name, 'id');
 	t.is(config._root._children[0]._children[0].attrib.value, '123');
-});
-
-test('set a new value to a existing variable', t => {
-	const config = new Config('fixtures/config.plugin.xml');
-	config.addPluginVariable('earth', 'color', 'green');
-
-	t.is(config._root._children.length, 1);
-	t.is(config._root._children[0].tag, 'plugin');
-	t.is(config._root._children[0].attrib.name, 'earth');
-	t.is(config._root._children[0]._children.length, 1);
-	t.is(config._root._children[0]._children[0].tag, 'variable');
-	t.is(config._root._children[0]._children[0].attrib.name, 'color');
-	t.is(config._root._children[0]._children[0].attrib.value, 'green');
 });
