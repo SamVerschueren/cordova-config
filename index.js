@@ -115,6 +115,44 @@ module.exports = (function () {
 	};
 
 	/**
+	 * Adds a plugin variable value in config.xml file, or sets the new value if the variable already exists for the specified plugin
+	 *
+	 * @param {string}	pluginName		  Plugin name
+	 * @param {string}	variableName		Variable name
+	 * @param {object}	variableValue		Variable value
+	 */
+	Config.prototype.addPluginVariable = function (pluginName, variableName, variableValue) {
+		// find the plugin
+		var plugin = this._doc.find('./plugin/[@name="' + pluginName + '"]');
+
+		if (!plugin) {
+			// If no plugin exists, create one
+			plugin = new et.Element('plugin');
+
+			plugin.attrib = {};
+			plugin.set('name', pluginName);
+
+			// Add the plugin to the root
+			this._root.append(plugin);
+		}
+
+		var variable = plugin.find('./variable/[@name="' + variableName + '"]');
+
+		if (!variable) {
+			// If no variable exists, create one
+			variable = new et.Element('variable');
+
+			variable.attrib = {};
+			variable.set('name', variableName);
+
+			// Add the variable to the plugin
+			plugin.append(variable);
+		}
+
+		variable.set('value', variableValue);
+	};
+
+	/**
 	 * Sets the description tag of the config.xml file.
 	 *
 	 * @param {string}	description	The description of the config.xml description tag.
