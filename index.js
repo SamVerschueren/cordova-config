@@ -201,7 +201,7 @@ module.exports = (function () {
 	 * @param {string}	version		The iOS CFBundleVersion.
 	 */
 	Config.prototype.setIOSBundleVersion = function (version) {
-		var regex = new RegExp('^[1-9][0-9]*(.[0-9]+){0,2}$');
+		var regex = new RegExp('^[0-9]*(.[0-9]+){0,2}$');
 
 		if (!regex.test(version)) {
 			// If the version is not valid, throw an error.
